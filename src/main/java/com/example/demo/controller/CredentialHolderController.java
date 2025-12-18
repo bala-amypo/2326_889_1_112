@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @RequestMapping("/student")
 public class CredentialHolderController {
     @Autowired
-    CredentialHolderService src;
+    CredentialHolderProfileService src;
     @PostMapping("/post")  
     public CredentialHolderProfile postdata(@RequestBody CredentialHolderProfile st){
         return src.savedata(st);
