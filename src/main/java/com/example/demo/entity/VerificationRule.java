@@ -1,101 +1,55 @@
 package com.example.demo.entity;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 import jakarta.persistence.*;
 
 @Entity
 @Table(
-    name = "verification_rule",
-    uniqueConstraints = @UniqueConstraint(columnNames = "ruleCode")
+    name = "credential_record",
+    uniqueConstraints = @UniqueConstraint(columnNames = "credentialCode")
 )
-public class VerificationRule {
+public class CredentialRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private Long holderId;
+
     @Column(nullable = false, unique = true)
-    private String ruleCode;
+    private String credentialCode;
 
-    private String description;
-    private String appliesToType;
-    private String validationExpression;
-    private Boolean active;
+    private String title;
+    private String issuer;
+    private LocalDate issueDate;
+    private LocalDate expiryDate;
+    private String credentialType;
+    private String status;
 
-    @ManyToMany(mappedBy = "rules")
-    private Set<CredentialRecord> credentials;
+    @Column(columnDefinition = "TEXT")
+    private String metadataJson;
 
-    // ✅ Empty constructor
-    public VerificationRule() {
+    // ✅ THIS FIELD WAS MISSING
+    @ManyToMany
+    @JoinTable(
+        name = "credential_verification_rules",
+        joinColumns = @JoinColumn(name = "credential_id"),
+        inverseJoinColumns = @JoinColumn(name = "rule_id")
+    )
+    private Set<VerificationRule> rules;
+
+    public CredentialRecord() {
     }
 
-    // ✅ Parameterized constructor
-    public VerificationRule(Long id, String ruleCode, String description,
-                            String appliesToType, String validationExpression,
-                            Boolean active) {
-        this.id = id;
-        this.ruleCode = ruleCode;
-        this.description = description;
-        this.appliesToType = appliesToType;
-        this.validationExpression = validationExpression;
-        this.active = active;
+    // getters & setters (keep existing ones)
+
+    public Set<VerificationRule> getRules() {
+        return rules;
     }
 
-    // ✅ Getters & Setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getRuleCode() {
-        return ruleCode;
-    }
-
-    public void setRuleCode(String ruleCode) {
-        this.ruleCode = ruleCode;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getAppliesToType() {
-        return appliesToType;
-    }
-
-    public void setAppliesToType(String appliesToType) {
-        this.appliesToType = appliesToType;
-    }
-
-    public String getValidationExpression() {
-        return validationExpression;
-    }
-
-    public void setValidationExpression(String validationExpression) {
-        this.validationExpression = validationExpression;
-    }
-
-    public Boolean getActive() {
-        return active;
-    }
-
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
-
-    public Set<CredentialRecord> getCredentials() {
-        return credentials;
-    }
-
-    public void setCredentials(Set<CredentialRecord> credentials) {
-        this.credentials = credentials;
+    public void setRules(Set<VerificationRule> rules) {
+        this.rules = rules;
     }
 }
