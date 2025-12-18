@@ -1,10 +1,10 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name = "audit_trail_record")
+@Table(name = "audit_trail_records")
 public class AuditTrailRecord {
 
     @Id
@@ -12,37 +12,27 @@ public class AuditTrailRecord {
     private Long id;
 
     private Long credentialId;
-
     private String eventType;
-
     private String details;
 
     private LocalDateTime loggedAt;
 
-    // 🔹 Auto-generate timestamp
     @PrePersist
-    public void onCreate() {
+    public void setLoggedAt() {
         this.loggedAt = LocalDateTime.now();
     }
 
-    // 🔹 Empty constructor
-    public AuditTrailRecord() {}
+    public AuditTrailRecord() {
+    }
 
-    // 🔹 Parameterized constructor
-    public AuditTrailRecord(Long id, Long credentialId, String eventType, String details) {
-        this.id = id;
+    public AuditTrailRecord(Long credentialId, String eventType, String details) {
         this.credentialId = credentialId;
         this.eventType = eventType;
         this.details = details;
     }
 
-    // 🔹 Getters & Setters
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Long getCredentialId() {
@@ -71,9 +61,5 @@ public class AuditTrailRecord {
 
     public LocalDateTime getLoggedAt() {
         return loggedAt;
-    }
-
-    public void setLoggedAt(LocalDateTime loggedAt) {
-        this.loggedAt = loggedAt;
     }
 }
