@@ -29,7 +29,18 @@ public class CredentialHolderServiceImpl implements CredentialHolderService{
     @Override
     public CredentialHolderEntity update(Long id, CedentialHolderEntity st){
         for(CredentialHolderEntity  s:list){
-            
+            if(s.getId().equals(id)){
+                s.setName(st.getName());
+                s.setEmail(st.getEmail());
+
+            s.setDepartment(st.getDepartment());
+            return s;
+            }
         }
+        return null;
+    }
+    @Override
+    public void delete(Long id){
+        list.removeIf(s -> s.getId().equals(id));
     }
 }
