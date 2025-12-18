@@ -6,14 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.entity.AuditTrailRecord;
-import com.example.demo.service.AuditTrialService;
+import com.example.demo.service.AuditTrailService;
 
 @RestController
 @RequestMapping("/audit-trials")
-public class AuditTrialController {
+public class AuditTrailController {
 
     @Autowired
-    private AuditTrialService service;
+    private AuditTrailService service;
 
     @PostMapping
     public AuditTrailRecord create(@RequestBody AuditTrailRecord record) {

@@ -7,10 +7,10 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.AuditTrailRecord;
 import com.example.demo.repository.AuditTrailRecordRepository;
-import com.example.demo.service.AuditTrialService;
+import com.example.demo.service.AuditTrailService;
 
 @Service
-public class AuditTrialServiceImpl implements AuditTrialService {
+public class AuditTrailServiceImpl implements AuditTrailService {
 
     @Autowired
     private AuditTrailRecordRepository repository;
