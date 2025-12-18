@@ -13,11 +13,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 @RestController
-public class Studentcontroller {
+@RequestMapping("/student")
+public class CredentialHolderController {
     @Autowired
-    Studentservice src;
+    CredentialHolderService src;
     @PostMapping("/post")  
-    public Studententity postdata(@RequestBody Studententity st){
+    public CredentialHolderEnity postdata(@RequestBody CredentialHolderEntity st){
         return src.savedata(st);
     }
     @GetMapping("/get")
@@ -31,6 +32,11 @@ public class Studentcontroller {
     @PutMapping("/update/{id}")
     public Studententity updateId(@PathVariable int id,@RequestBody Studententity st){
      return src.upid(id,st);
+    }
+    @DeleteMapping("/delete/{id}")
+    public String deleted(@PathVariable int id){
+        src.delete(id);
+        
     }
    
 }
