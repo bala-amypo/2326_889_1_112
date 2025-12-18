@@ -27,7 +27,7 @@ public class CredentialHolderProfileServiceImpl implements CredentialHolderProfi
     }
 
     @Override
-    public List<CredentialHolderProfile> id() { 
+    public List<CredentialHolderProfile> getidval() { 
         return list;
     }
 

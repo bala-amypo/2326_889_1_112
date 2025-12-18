@@ -4,7 +4,7 @@ import com.example.demo.entity.CredentialHolderProfile;
 public interface CredentialHolderProfileService{
      CredentialHolderProfile savedata(CredentialHolderProfile st);
      CredentialHolderProfile retdata(Long id);
-     List<CredentialHolderProfile>id();
+     List<CredentialHolderProfile>getidval();
      CredentialHolderProfile upid(Long id, CredentialHolderProfile st);
      void delete(Long id);
 }
