@@ -1,6 +1,5 @@
 package com.example.demo.entity;
-import java.util.*
-
+import java.util.*;
 public class CredentialHolderEntity {
     @Id
     private Long id;
