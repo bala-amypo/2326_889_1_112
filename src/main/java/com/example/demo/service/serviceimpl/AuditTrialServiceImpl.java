@@ -6,14 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.AuditTrailRecord;
-import com.example.demo.repository.AuditTrialRepository;
+import com.example.demo.repository.AuditTrailRecordRepository;
 import com.example.demo.service.AuditTrialService;
 
 @Service
 public class AuditTrialServiceImpl implements AuditTrialService {
 
     @Autowired
-    private AuditTrialRepository repository;
+    private AuditTrailRecordRepository repository;
 
     @Override
     public AuditTrailRecord save(AuditTrailRecord record) {
