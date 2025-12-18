@@ -19,7 +19,7 @@ public class CredentialHolderProfileServiceImpl implements CredentialHolderProfi
     }
 
     @Override
-    public CredentialHolderProfile getidval(Long id) {
+    public CredentialHolderProfile retdata(Long id) {
         return list.stream()
                 .filter(s -> s.getId().equals(id))
                 .findFirst()
@@ -27,12 +27,12 @@ public class CredentialHolderProfileServiceImpl implements CredentialHolderProfi
     }
 
     @Override
-    public List<CredentialHolderProfile> getall() { 
+    public List<CredentialHolderProfile> id() { 
         return list;
     }
 
     @Override
-    public CredentialHolderProfile update(Long id, CredentialHolderProfile st) {
+    public CredentialHolderProfile upid(Long id, CredentialHolderProfile st) {
         for (CredentialHolderProfile s : list) {
             if (s.getId().equals(id)) {
                 s.setFullName(st.getFullName()); 
