@@ -19,7 +19,7 @@ public class CredentialHolderController {
         return src.retdata();
     }
     @GetMapping("/getid/{id}")
-    public CredentialHolderProfile getIdVal(@PathVariable int id){
+    public CredentialHolderProfile getIdVal(@PathVariable Long id){
         return src.getidval(id);
     }
     @PutMapping("/update/{id}")
