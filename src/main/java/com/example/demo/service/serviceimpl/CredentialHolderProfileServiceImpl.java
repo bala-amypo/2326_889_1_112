@@ -1,18 +1,17 @@
-package com.example.demo.service.serviceimpl; // 🔴 CHANGED package
+package com.example.demo.service.serviceimpl;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.example.demo.entity.CredentialHolderProfile; // 🔴 CHANGED import
-import com.example.demo.service.CredentialHolderProfileService; // 🔴 CHANGED import
+import com.example.demo.entity.CredentialHolderProfile; 
+import com.example.demo.service.CredentialHolderProfileService; 
 
 @Service
-public class CredentialHolderProfileServiceImpl
-        implements CredentialHolderProfileService { // 🟢 FIXED
-
-    private List<CredentialHolderProfile> list = new ArrayList<>(); // 🔴 CHANGED
+public class CredentialHolderProfileServiceImpl implements CredentialHolderProfileService { 
+    
+    private List<CredentialHolderProfile> list = new ArrayList<>(); 
 
     @Override
     public CredentialHolderProfile savedata(CredentialHolderProfile st) {
@@ -29,7 +28,7 @@ public class CredentialHolderProfileServiceImpl
     }
 
     @Override
-    public List<CredentialHolderProfile> getall() { // 🔴 CHANGED return type
+    public List<CredentialHolderProfile> getall() { 
         return list;
     }
 
