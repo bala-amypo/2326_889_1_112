@@ -1,7 +1,6 @@
 package com.example.demo.service.serviceimpl;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import org.springframework.stereotype.Service;
 
@@ -36,9 +35,9 @@ public class CredentialHolderProfileServiceImpl implements CredentialHolderProfi
     public CredentialHolderProfile update(Long id, CredentialHolderProfile st) {
         for (CredentialHolderProfile s : list) {
             if (s.getId().equals(id)) {
-                s.setFullName(st.getFullName()); // 🔴 CHANGED
-                s.setEmail(st.getEmail());       // 🔴 CHANGED
-                s.setOrganization(st.getOrganization()); // 🔴 CHANGED
+                s.setFullName(st.getFullName()); 
+                s.setEmail(st.getEmail());       
+                s.setOrganization(st.getOrganization()); 
                 return s;
             }
         }
@@ -46,7 +45,7 @@ public class CredentialHolderProfileServiceImpl implements CredentialHolderProfi
     }
 
     @Override
-    public void delete(Long id) {
+    public  delete(Long id) {
         list.removeIf(s -> s.getId().equals(id));
     }
 }
