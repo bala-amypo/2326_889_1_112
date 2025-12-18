@@ -44,7 +44,7 @@ public class CredentialHolderProfileServiceImpl implements CredentialHolderProfi
             // Update the fields as needed
             existingProfile.setFullName(st.getFullName()); // example field
             existingProfile.setEmail(st.getEmail());
-            existingProfile.setActive(st.active());
+            existingProfile.setActive(st.getActive());
             existingProfile.setOrganization(st.getOrganization());
             // add more fields if needed
 
