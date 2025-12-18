@@ -1,55 +1,66 @@
-package com.example.demo.service.serviceimpl;
+package com.example.demo.service;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.example.demo.entity.CredentialHolderProfile;
 import com.example.demo.repository.CredentialHolderProfileRepository;
-import com.example.demo.entity.CredentialHolderProfile; 
-import com.example.demo.service.CredentialHolderProfileService; 
 
 @Service
-public class CredentialHolderProfileServiceImpl implements CredentialHolderProfileService { 
-    private CredentialHolderRepository rep;
-    public CredentialHolderServiceImpl(CredentialHolderRepository rep){
-    this.rep=rep;
-    private List<CredentialHolderProfile> list = new ArrayList<>(); 
+public class CredentialHolderProfileServiceImpl implements CredentialHolderProfileService {
+
+    @Autowired
+    private CredentialHolderProfileRepository repository;
 
     @Override
     public CredentialHolderProfile savedata(CredentialHolderProfile st) {
-        list.add(st);
-        return st;
+        return repository.save(st);
     }
 
     @Override
-    public CredentialHolderProfile retdata() {
-        return list;
+    public List<CredentialHolderProfile> retdata() {
+        return repository.findAll();
     }
 
     @Override
-    public List<CredentialHolderProfile> getidval(Long id) { 
-        for(CredentialHolderProfile c:list){
-            if(s.getId().equals(id)){
-            return s;
-            }
+    public CredentialHolderProfile getidval(Long id) {
+        Optional<CredentialHolderProfile> optionalProfile = repository.findById(id);
+        if (optionalProfile.isPresent()) {
+            return optionalProfile.get();
+        } else {
+            throw new RuntimeException("CredentialHolderProfile not found with id: " + id);
         }
-        return null;
     }
 
     @Override
     public CredentialHolderProfile upid(Long id, CredentialHolderProfile st) {
-        for (CredentialHolderProfile s : list) {
-            if (s.getId().equals(id)) {
-                s.setFullName(st.getFullName()); 
-                s.setEmail(st.getEmail());       
-                s.setOrganization(st.getOrganization()); 
-                return s;
-            }
+        Optional<CredentialHolderProfile> optionalProfile = repository.findById(id);
+        if (optionalProfile.isPresent()) {
+            CredentialHolderProfile existingProfile = optionalProfile.get();
+
+            // Update the fields as needed
+            existingProfile.setName(st.getName()); // example field
+            existingProfile.setEmail(st.getEmail());
+            existingProfile.setPhone(st.getPhone());
+            existingProfile.setAddress(st.getAddress());
+            // add more fields if needed
+
+            return repository.save(existingProfile);
+        } else {
+            throw new RuntimeException("CredentialHolderProfile not found with id: " + id);
         }
-        return null;
     }
 
     @Override
     public void delete(Long id) {
-        list.removeIf(s -> s.getId().equals(id));
+        Optional<CredentialHolderProfile> optionalProfile = repository.findById(id);
+        if (optionalProfile.isPresent()) {
+            repository.deleteById(id);
+        } else {
+            throw new RuntimeException("CredentialHolderProfile not found with id: " + id);
+        }
     }
 }
