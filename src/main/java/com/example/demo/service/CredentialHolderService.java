@@ -1,10 +1,10 @@
 package com.example.demo.service;
 import java.util.List;
-import com.example.demo.entity.CredentialHolderEntity;
+import com.example.demo.entity.CredentialHolderProfile;
 public interface CredentialHolderService{
-     CredentialHolderEntity savedata(CredentialHolderEntity st);
-     CredentialHolderEntity getidval(Long id);
-     List<CredentialHolderEntity>getall();
-     CredentialHolderEntity update(Long id, CredentialHolderEntity st);
+     CredentialHolderProfile savedata(CredentialHolderProfile st);
+     CredentialHolderProfile getidval(Long id);
+     List<CredentialHolderprofile>getall();
+     CredentialHolderProfile update(Long id, CredentialHolderProfile st);
      void delete(Long id);
 }

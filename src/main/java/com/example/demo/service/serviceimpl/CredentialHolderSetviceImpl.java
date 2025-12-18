@@ -9,13 +9,13 @@ public class CredentialHolderServiceImpl implements CredentialHolderService{
 
     @Override
 
-    public CredentialHolderProfile savedata(CredentialHolderEntity st){
+    public CredentialHolderProfile savedata(CredentialHolderProfile st){
         list.add(st);
         return st;
     }
     @Override
-    public CredentialHolderEntity getidval(Long id){
-        for(CredentialHolderEntity s: list){
+    public CredentialHolderProfile getidval(Long id){
+        for(CredentialHolderProfile s: list){
             if(s.getId().equals(id)){
                 return s;
             }
@@ -23,12 +23,12 @@ public class CredentialHolderServiceImpl implements CredentialHolderService{
         return null;
     }
     @Override
-    public List<StudentEntity>getall(){
+    public List<StudentProfile>getall(){
         return list;
     }
     @Override
-    public CredentialHolderEntity update(Long id, CedentialHolderEntity st){
-        for(CredentialHolderEntity  s:list){
+    public CredentialHolderProfile update(Long id, CredentialHolderProfile st){
+        for(CredentialHolderProfile  s:list){
             if(s.getId().equals(id)){
                 s.setName(st.getName());
                 s.setEmail(st.getEmail());
