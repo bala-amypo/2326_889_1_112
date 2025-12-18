@@ -9,7 +9,7 @@ import com.example.demo.service.CredentialHolderProfileService;
 
 @Service
 public class CredentialHolderProfileServiceImpl implements CredentialHolderProfileService { 
-    
+    private 
     private List<CredentialHolderProfile> list = new ArrayList<>(); 
 
     @Override
@@ -19,16 +19,18 @@ public class CredentialHolderProfileServiceImpl implements CredentialHolderProfi
     }
 
     @Override
-    public CredentialHolderProfile retdata(Long id) {
-        return list.stream()
-                .filter(s -> s.getId().equals(id))
-                .findFirst()
-                .orElse(null);
+    public CredentialHolderProfile retdata() {
+        return list;
     }
 
     @Override
-    public List<CredentialHolderProfile> getidval() { 
-        return list;
+    public List<CredentialHolderProfile> getidval(Long id) { 
+        for(CredentialHolderProfile c:list){
+            if(s.getId().equals(id)){
+            return s;
+            }
+        }
+        return null;
     }
 
     @Override
