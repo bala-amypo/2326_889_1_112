@@ -1,4 +1,4 @@
-package com.example.demo.controller
+package com.example.demo.controller;
 import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.example.demo.entity.CredentialHolderProfile;
@@ -33,4 +33,3 @@ public class CredentialHolderController {
     }
    
 }
-
