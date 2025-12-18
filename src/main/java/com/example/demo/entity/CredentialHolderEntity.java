@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 import java.util.*;
+import jakarta.persistence.*;
 public class CredentialHolderEntity {
     @Id
     private Long id;
