@@ -1,7 +1,5 @@
 package com.example.demo.entity;
-
 import java.time.LocalDate;
-
 import jakarta.persistence.*;
 
 @Entity
@@ -30,11 +28,9 @@ public class CredentialRecord {
     @Column(columnDefinition = "TEXT")
     private String metadataJson;
 
-    // ✅ Empty constructor
     public CredentialRecord() {
     }
 
-    // ✅ Parameterized constructor
     public CredentialRecord(Long id, Long holderId, String credentialCode, String title,
                             String issuer, LocalDate issueDate, LocalDate expiryDate,
                             String credentialType, String status, String metadataJson) {
@@ -50,7 +46,6 @@ public class CredentialRecord {
         this.metadataJson = metadataJson;
     }
 
-    // ✅ Getters & Setters
     public Long getId() {
         return id;
     }
