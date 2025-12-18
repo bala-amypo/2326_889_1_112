@@ -2,7 +2,9 @@ package com.example.demo.entity;
 import java.util.*;
 import java.time.LocalDateTime;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 @Entity
+@Table(name="Credential")
 public class CredentialHolderProfile {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
