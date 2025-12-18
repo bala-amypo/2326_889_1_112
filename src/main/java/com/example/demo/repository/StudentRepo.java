@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 
 import com.example.demo.entity.CredentialHolderEntity;
 @Repository
-public interface StudentRepo extends JpaRepository<CredentialHolderEntity, Long>{
+public interface StudentRepo extends JpaRepository<CredentialHolderProfile, Long>{
 }

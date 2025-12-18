@@ -15,19 +15,19 @@ public class CredentialHolderController {
     @Autowired
     CredentialHolderService src;
     @PostMapping("/post")  
-    public CredentialHolderEnity postdata(@RequestBody CredentialHolderEntity st){
+    public CredentialHolderProfile postdata(@RequestBody CredentialHolderProfile st){
         return src.savedata(st);
     }
     @GetMapping("/get")
-    public List<CredentialHolderEntity>getdata(){
+    public List<CredentialHolderProfile>getdata(){
         return src.retdata();
     }
     @GetMapping("/getid/{id}")
-    public CredentialHolderEntity getIdVal(@PathVariable int id){
+    public CredentialHolderProfile getIdVal(@PathVariable int id){
         return src.id(id);
     }
     @PutMapping("/update/{id}")
-    public CredentialHolderEntity updateId(@PathVariable int id,@RequestBody CredentialHolderEntity st){
+    public CredentialHolderProfile updateId(@PathVariable int id,@RequestBody CredentialHolderProfile st){
      return src.upid(id,st);
     }
     @DeleteMapping("/delete/{id}")
