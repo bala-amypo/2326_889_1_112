@@ -7,3 +7,4 @@ public interface CredentialHolderService{
      List<CredentialHolderEntity>getall();
      CredentialHolderEntity update(Long id, CredentialHolderEntity st);
      void delete(Long id);
+}
