@@ -1,12 +1,12 @@
 package com.example.demo.entity;
 import java.util.*
-import java.time.LocalDateTime;
 
-public class CredentialHolderProfile {
-
+public class CredentialHolderEntity {
+    @Id
     private Long id;
     private String holderId;
     private String fullName;
+    @Column(unique=true)
     private String email;
     private String organization;
     private Boolean active;
