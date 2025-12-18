@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.entity.CredentialHolderEntity;
 import com.example.demo.service.CredentialHolderService;
 @Service
-public class CredentialHolderServiceImpl implements CredentialHolderService{
+public class CredentialHolderProfileServiceImpl implements CredentialHolderProfileService{
     private List<CredentialHolderProfile> list =new ArrayList<>();
 
     @Override
