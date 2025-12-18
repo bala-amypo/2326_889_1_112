@@ -22,15 +22,15 @@ public class CredentialHolderController {
         return src.savedata(st);
     }
     @GetMapping("/get")
-    public List<Studententity>getdata(){
+    public List<CredentialHolderEntity>getdata(){
         return src.retdata();
     }
     @GetMapping("/getid/{id}")
-    public Studententity getIdVal(@PathVariable int id){
+    public CredentialHolderEntity getIdVal(@PathVariable int id){
         return src.id(id);
     }
     @PutMapping("/update/{id}")
-    public Studententity updateId(@PathVariable int id,@RequestBody Studententity st){
+    public CredentialHolderEntity updateId(@PathVariable int id,@RequestBody CredentialHolderEntity st){
      return src.upid(id,st);
     }
     @DeleteMapping("/delete/{id}")
