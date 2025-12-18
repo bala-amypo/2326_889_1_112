@@ -1,51 +1,31 @@
 package com.example.demo.entity;
-import java.time.LocalDate;
+
 import jakarta.persistence.*;
+import java.util.Set;
 
 @Entity
-@Table(
-    name = "credential_record",
-    uniqueConstraints = @UniqueConstraint(columnNames = "credentialCode")
-)
+@Table(name = "credential_record")
 public class CredentialRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long holderId;
+    private String credentialName;
 
-    @Column(nullable = false, unique = true)
-    private String credentialCode;
+    @ManyToMany(mappedBy = "credentials")
+    private Set<VerificationRule> rules;
 
-    private String title;
-    private String issuer;
-    private LocalDate issueDate;
-    private LocalDate expiryDate;
-    private String credentialType;
-    private String status;
+    // 🔹 Empty constructor
+    public CredentialRecord() {}
 
-    @Column(columnDefinition = "TEXT")
-    private String metadataJson;
-
-    public CredentialRecord() {
-    }
-
-    public CredentialRecord(Long id, Long holderId, String credentialCode, String title,
-                            String issuer, LocalDate issueDate, LocalDate expiryDate,
-                            String credentialType, String status, String metadataJson) {
+    // 🔹 Parameterized constructor
+    public CredentialRecord(Long id, String credentialName) {
         this.id = id;
-        this.holderId = holderId;
-        this.credentialCode = credentialCode;
-        this.title = title;
-        this.issuer = issuer;
-        this.issueDate = issueDate;
-        this.expiryDate = expiryDate;
-        this.credentialType = credentialType;
-        this.status = status;
-        this.metadataJson = metadataJson;
+        this.credentialName = credentialName;
     }
 
+    // 🔹 Getters & Setters
     public Long getId() {
         return id;
     }
@@ -54,75 +34,19 @@ public class CredentialRecord {
         this.id = id;
     }
 
-    public Long getHolderId() {
-        return holderId;
+    public String getCredentialName() {
+        return credentialName;
     }
 
-    public void setHolderId(Long holderId) {
-        this.holderId = holderId;
+    public void setCredentialName(String credentialName) {
+        this.credentialName = credentialName;
     }
 
-    public String getCredentialCode() {
-        return credentialCode;
+    public Set<VerificationRule> getRules() {
+        return rules;
     }
 
-    public void setCredentialCode(String credentialCode) {
-        this.credentialCode = credentialCode;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getIssuer() {
-        return issuer;
-    }
-
-    public void setIssuer(String issuer) {
-        this.issuer = issuer;
-    }
-
-    public LocalDate getIssueDate() {
-        return issueDate;
-    }
-
-    public void setIssueDate(LocalDate issueDate) {
-        this.issueDate = issueDate;
-    }
-
-    public LocalDate getExpiryDate() {
-        return expiryDate;
-    }
-
-    public void setExpiryDate(LocalDate expiryDate) {
-        this.expiryDate = expiryDate;
-    }
-
-    public String getCredentialType() {
-        return credentialType;
-    }
-
-    public void setCredentialType(String credentialType) {
-        this.credentialType = credentialType;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getMetadataJson() {
-        return metadataJson;
-    }
-
-    public void setMetadataJson(String metadataJson) {
-        this.metadataJson = metadataJson;
+    public void setRules(Set<VerificationRule> rules) {
+        this.rules = rules;
     }
 }
