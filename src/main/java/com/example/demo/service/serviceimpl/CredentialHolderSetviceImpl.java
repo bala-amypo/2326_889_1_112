@@ -9,5 +9,27 @@ public class CredentialHolderServiceImpl implements CredentialHolderService{
 
     @Override
 
-    
+    public CredentialHolderEntity savedata(CredentialHolderEntity st){
+        list.add(st);
+        return st;
+    }
+    @Override
+    public CredentialHolderEntity getidval(Long id){
+        for(CredentialHolderEntity s: list){
+            if(s.getId().equals(id)){
+                return s;
+            }
+        }
+        return null;
+    }
+    @Override
+    public List<StudentEntity>getall(){
+        return list;
+    }
+    @Override
+    public CredentialHolderEntity update(Long id, CedentialHolderEntity st){
+        for(CredentialHolderEntity  s:list){
+            
+        }
+    }
 }
