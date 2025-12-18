@@ -1,7 +1,7 @@
 package com.example.demo.entity;
 import java.util.*;
 import jakarta.persistence.*;
-public class CredentialHolderEntity {
+public class CredentialHolderProfile {
     @Id
     private Long id;
     private String holderId;
@@ -12,8 +12,7 @@ public class CredentialHolderEntity {
     private Boolean active;
     private LocalDateTime createdAt;
 
-    public CredentialHolderProfile() {
-    }
+    public CredentialHolderProfile() {}
 
     public CredentialHolderProfile(Long id, String holderId, String fullName,String email, String organization,Boolean active, LocalDateTime createdAt) {
         this.id = id;
