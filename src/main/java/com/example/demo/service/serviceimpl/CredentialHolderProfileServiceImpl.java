@@ -45,7 +45,7 @@ public class CredentialHolderProfileServiceImpl implements CredentialHolderProfi
     }
 
     @Override
-    public  delete(Long id) {
+    public void delete(Long id) {
         list.removeIf(s -> s.getId().equals(id));
     }
 }

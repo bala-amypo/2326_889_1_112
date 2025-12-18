@@ -27,7 +27,7 @@ public class CredentialHolderController {
      return src.upid(id,st);
     }
     @DeleteMapping("/delete/{id}")
-    public String deleted(@PathVariable Long id){
+    public void delete(@PathVariable Long id){
         src.delete(id);
         
     }
