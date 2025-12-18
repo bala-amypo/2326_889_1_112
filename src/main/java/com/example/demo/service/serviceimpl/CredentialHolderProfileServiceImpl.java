@@ -42,10 +42,10 @@ public class CredentialHolderProfileServiceImpl implements CredentialHolderProfi
             CredentialHolderProfile existingProfile = optionalProfile.get();
 
             // Update the fields as needed
-            existingProfile.setName(st.getName()); // example field
+            existingProfile.setFullName(st.getFullName()); // example field
             existingProfile.setEmail(st.getEmail());
-            existingProfile.setPhone(st.getPhone());
-            existingProfile.setAddress(st.getAddress());
+            existingProfile.setActive(st.active());
+            existingProfile.setOrganization(st.getOrganization());
             // add more fields if needed
 
             return repository.save(existingProfile);
