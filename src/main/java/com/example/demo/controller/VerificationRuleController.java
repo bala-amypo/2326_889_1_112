@@ -9,14 +9,14 @@ import com.example.demo.entity.VerificationRule;
 import com.example.demo.service.VerificationRuleService;
 
 @RestController
-@RequestMapping("/api/verification-rules")
+@RequestMapping("/verification-rules")
 public class VerificationRuleController {
 
     @Autowired
     private VerificationRuleService service;
 
     @PostMapping
-    public VerificationRule save(@RequestBody VerificationRule rule) {
+    public VerificationRule create(@RequestBody VerificationRule rule) {
         return service.save(rule);
     }
 
@@ -31,8 +31,7 @@ public class VerificationRuleController {
     }
 
     @PutMapping("/{id}")
-    public VerificationRule update(@PathVariable Long id,
-                                   @RequestBody VerificationRule rule) {
+    public VerificationRule update(@PathVariable Long id, @RequestBody VerificationRule rule) {
         return service.update(id, rule);
     }
 

@@ -1,47 +1,36 @@
 package com.example.demo.entity;
 
+import jakarta.persistence.*;
 import java.util.Set;
 
-import jakarta.persistence.*;
-
 @Entity
-@Table(
-    name = "verification_rule",
-    uniqueConstraints = @UniqueConstraint(columnNames = "ruleCode")
-)
+@Table(name = "verification_rule")
 public class VerificationRule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
-    private String ruleCode;
+    private String ruleName;
 
-    private String description;
-    private String appliesToType;
-    private String validationExpression;
-    private Boolean active;
+    @ManyToMany
+    @JoinTable(
+        name = "rule_credential",
+        joinColumns = @JoinColumn(name = "rule_id"),
+        inverseJoinColumns = @JoinColumn(name = "credential_id")
+    )
+    private Set<CredentialRecord> credentials;
 
-  
+    // 🔹 Empty constructor
+    public VerificationRule() {}
 
-    // ✅ Empty constructor
-    public VerificationRule() {
-    }
-
-    // ✅ Parameterized constructor
-    public VerificationRule(Long id, String ruleCode, String description,
-                            String appliesToType, String validationExpression,
-                            Boolean active) {
+    // 🔹 Parameterized constructor
+    public VerificationRule(Long id, String ruleName) {
         this.id = id;
-        this.ruleCode = ruleCode;
-        this.description = description;
-        this.appliesToType = appliesToType;
-        this.validationExpression = validationExpression;
-        this.active = active;
+        this.ruleName = ruleName;
     }
 
-    // ✅ Getters & Setters
+    // 🔹 Getters & Setters
     public Long getId() {
         return id;
     }
@@ -50,44 +39,12 @@ public class VerificationRule {
         this.id = id;
     }
 
-    public String getRuleCode() {
-        return ruleCode;
+    public String getRuleName() {
+        return ruleName;
     }
 
-    public void setRuleCode(String ruleCode) {
-        this.ruleCode = ruleCode;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getAppliesToType() {
-        return appliesToType;
-    }
-
-    public void setAppliesToType(String appliesToType) {
-        this.appliesToType = appliesToType;
-    }
-
-    public String getValidationExpression() {
-        return validationExpression;
-    }
-
-    public void setValidationExpression(String validationExpression) {
-        this.validationExpression = validationExpression;
-    }
-
-    public Boolean getActive() {
-        return active;
-    }
-
-    public void setActive(Boolean active) {
-        this.active = active;
+    public void setRuleName(String ruleName) {
+        this.ruleName = ruleName;
     }
 
     public Set<CredentialRecord> getCredentials() {

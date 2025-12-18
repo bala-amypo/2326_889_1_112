@@ -32,8 +32,13 @@ public class VerificationRuleServiceImpl implements VerificationRuleService {
 
     @Override
     public VerificationRule update(Long id, VerificationRule rule) {
-        rule.setId(id);
-        return repository.save(rule);
+        VerificationRule existing = repository.findById(id).orElse(null);
+        if (existing != null) {
+            existing.setRuleName(rule.getRuleName());
+            existing.setCredentials(rule.getCredentials());
+            return repository.save(existing);
+        }
+        return null;
     }
 
     @Override
