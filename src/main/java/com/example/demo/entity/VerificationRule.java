@@ -23,8 +23,7 @@ public class VerificationRule {
     private String validationExpression;
     private Boolean active;
 
-    @ManyToMany(mappedBy = "rules")
-    private Set<CredentialRecord> credentials;
+  
 
     // ✅ Empty constructor
     public VerificationRule() {
