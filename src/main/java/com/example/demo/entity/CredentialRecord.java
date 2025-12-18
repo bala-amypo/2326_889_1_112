@@ -16,16 +16,13 @@ public class CredentialRecord {
     @ManyToMany(mappedBy = "credentials")
     private Set<VerificationRule> rules;
 
-    // 🔹 Empty constructor
     public CredentialRecord() {}
 
-    // 🔹 Parameterized constructor
     public CredentialRecord(Long id, String credentialName) {
         this.id = id;
         this.credentialName = credentialName;
     }
 
-    // 🔹 Getters & Setters
     public Long getId() {
         return id;
     }
@@ -50,3 +47,4 @@ public class CredentialRecord {
         this.rules = rules;
     }
 }
+

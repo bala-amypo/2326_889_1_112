@@ -10,8 +10,10 @@ public class VerificationRule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String ruleName;
 
+    // ✅ THIS FIELD WAS MISSING — NOW FIXED
     @ManyToMany
     @JoinTable(
         name = "rule_credential",
@@ -20,16 +22,17 @@ public class VerificationRule {
     )
     private Set<CredentialRecord> credentials;
 
-    // 🔹 Empty constructor
+    // Empty constructor
     public VerificationRule() {}
 
-    // 🔹 Parameterized constructor
-    public VerificationRule(Long id, String ruleName) {
+    // Parameterized constructor
+    public VerificationRule(Long id, String ruleName, Set<CredentialRecord> credentials) {
         this.id = id;
         this.ruleName = ruleName;
+        this.credentials = credentials;
     }
 
-    // 🔹 Getters & Setters
+    // Getters & Setters
     public Long getId() {
         return id;
     }
