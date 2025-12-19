@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "credential_holder")
-public class CredentialHolder {
+public class CredentialHolderProfile {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,7 +14,7 @@ public class CredentialHolder {
     private String email;
     private Boolean active = true;
 
-    public CredentialHolder() {}
+    public CredentialHolderProfile() {}
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
