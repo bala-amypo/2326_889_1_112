@@ -5,14 +5,13 @@ import com.example.demo.entity.CredentialRecord;
 
 public interface CredentialRecordService {
 
-    CredentialRecord create(CredentialRecord record);
+    CredentialRecord save(CredentialRecord record);
+
+    List<CredentialRecord> getAll();
+
+    CredentialRecord getById(Long id);
 
     CredentialRecord update(Long id, CredentialRecord record);
 
-
-    CredentialRecord getByCode(String code);
-
-    List<CredentialRecord> getByHolder(Long holderId);
-
-    List<CredentialRecord> getAll();
+    void delete(Long id);
 }
