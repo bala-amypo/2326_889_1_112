@@ -26,10 +26,5 @@ public class CredentialHolderController {
     public CredentialHolderProfile updateId(@PathVariable Long id,@RequestBody CredentialHolderProfile st){
      return src.upid(id,st);
     }
-    @DeleteMapping("/delete/{id}")
-    public void delete(@PathVariable Long id){
-        src.delete(id);
-        
-    }
    
 }

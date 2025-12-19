@@ -6,5 +6,4 @@ public interface CredentialHolderProfileService{
      List<CredentialHolderProfile> retdata();
      CredentialHolderProfile getidval(Long id);
      CredentialHolderProfile upid(Long id, CredentialHolderProfile st);
-     void delete(Long id);
 }

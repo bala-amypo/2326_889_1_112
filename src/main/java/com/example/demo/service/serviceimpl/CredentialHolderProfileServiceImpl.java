@@ -54,13 +54,4 @@ public class CredentialHolderProfileServiceImpl implements CredentialHolderProfi
         }
     }
 
-    @Override
-    public void delete(Long id) {
-        Optional<CredentialHolderProfile> optionalProfile = repository.findById(id);
-        if (optionalProfile.isPresent()) {
-            repository.deleteById(id);
-        } else {
-            throw new RuntimeException("CredentialHolderProfile not found with id: " + id);
-        }
-    }
 }
