@@ -11,5 +11,5 @@ public interface AuditTrailService {
 
     AuditTrailRecord getById(Long id);
 
-    void delete(Long id);
+   
 }

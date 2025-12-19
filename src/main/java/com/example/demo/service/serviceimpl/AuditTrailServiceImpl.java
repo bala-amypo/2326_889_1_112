@@ -30,8 +30,5 @@ public class AuditTrailServiceImpl implements AuditTrailService {
         return repository.findById(id).orElse(null);
     }
 
-    @Override
-    public void delete(Long id) {
-        repository.deleteById(id);
-    }
+ 
 }
