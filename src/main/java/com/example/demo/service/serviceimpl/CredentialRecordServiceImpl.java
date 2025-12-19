@@ -21,12 +21,6 @@ public class CredentialRecordServiceImpl
         return repository.save(record);
     }
 
-    @Override
-    public CredentialRecord update(Long id, CredentialRecord record) {
-        CredentialRecord existing = getById(id);
-        record.setId(existing.getId());
-        return repository.save(record);
-    }
 
    
 
