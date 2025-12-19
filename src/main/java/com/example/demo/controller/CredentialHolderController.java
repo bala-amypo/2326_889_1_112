@@ -1,30 +1,41 @@
 package com.example.demo.controller;
-import java.util.*;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import com.example.demo.entity.CredentialHolderProfile;
-import com.example.demo.service.CredentialHolderProfileService;
 import org.springframework.web.bind.annotation.*;
-import java.time.LocalDateTime;
+
+import com.example.demo.entity.CredentialHolder;
+import com.example.demo.service.CredentialHolderService;
+
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
-@RequestMapping("/student")
+@RequestMapping("/api/holders")
+@Tag(name = "Credential Holders")
 public class CredentialHolderController {
+
     @Autowired
-    private CredentialHolderProfileService src;
-    @PostMapping("/post")  
-    public CredentialHolderProfile postdata(@RequestBody CredentialHolderProfile st){
-        return src.savedata(st);
+    private CredentialHolderService service;
+
+    @PostMapping
+    public CredentialHolder createHolder(@RequestBody CredentialHolder holder) {
+        return service.save(holder);
     }
-    @GetMapping("/get")
-    public List<CredentialHolderProfile>getdata(){
-        return src.retdata();
+
+    @GetMapping("/{id}")
+    public CredentialHolder getById(@PathVariable Long id) {
+        return service.getById(id);
     }
-    @GetMapping("/getid/{id}")
-    public CredentialHolderProfile getIdVal(@PathVariable Long id){
-        return src.getidval(id);
+
+    @GetMapping
+    public List<CredentialHolder> getAll() {
+        return service.getAll();
     }
-    @PutMapping("/update/{id}")
-    public CredentialHolderProfile updateId(@PathVariable Long id,@RequestBody CredentialHolderProfile st){
-     return src.upid(id,st);
+
+    @PutMapping("/{id}/status")
+    public CredentialHolder updateStatus(@PathVariable Long id,
+                                         @RequestParam boolean active) {
+        return service.updateStatus(id, active);
     }
-   
 }
