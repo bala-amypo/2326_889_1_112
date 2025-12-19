@@ -12,7 +12,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/api/credentials")
-@Tag(name = "Credentials")
+@Tag(name = "Credential Records")
 public class CredentialRecordController {
 
     @Autowired
@@ -20,27 +20,35 @@ public class CredentialRecordController {
 
     @PostMapping
     public CredentialRecord create(@RequestBody CredentialRecord record) {
-        return service.save(record);
+        return service.create(record);
     }
 
     @PutMapping("/{id}")
-    public CredentialRecord update(@PathVariable Long id,
-                                   @RequestBody CredentialRecord record) {
+    public CredentialRecord update(
+            @PathVariable Long id,
+            @RequestBody CredentialRecord record) {
         return service.update(id, record);
     }
 
     @GetMapping("/holder/{holderId}")
-    public List<CredentialRecord> getByHolder(@PathVariable Long holderId) {
-        return service.findByHolderId(holderId);
+    public List<CredentialRecord> byHolder(
+            @PathVariable Long holderId) {
+        return service.getByHolder(holderId);
     }
 
     @GetMapping("/code/{credentialCode}")
-    public CredentialRecord getByCode(@PathVariable String credentialCode) {
-        return service.findByCode(credentialCode);
+    public CredentialRecord byCode(
+            @PathVariable String credentialCode) {
+        return service.getByCode(credentialCode);
+    }
+
+    @GetMapping("/{id}")
+    public CredentialRecord get(@PathVariable Long id) {
+        return service.getById(id);
     }
 
     @GetMapping
-    public List<CredentialRecord> getAll() {
+    public List<CredentialRecord> all() {
         return service.getAll();
     }
 }

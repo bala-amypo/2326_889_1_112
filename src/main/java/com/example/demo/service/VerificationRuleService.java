@@ -1,17 +1,19 @@
 package com.example.demo.service;
 
 import java.util.List;
-import com.example.demo.entity.VerificationRule;
+import com.example.demo.entity.CredentialRecord;
 
-public interface VerificationRuleService {
+public interface CredentialRecordService {
 
-    VerificationRule save(VerificationRule rule);
+    CredentialRecord create(CredentialRecord record);
 
-    VerificationRule update(Long id, VerificationRule rule);
+    CredentialRecord update(Long id, CredentialRecord record);
 
-    VerificationRule getById(Long id);
+    CredentialRecord getById(Long id);
 
-    List<VerificationRule> getActiveRules();
+    CredentialRecord getByCode(String code);
 
-    List<VerificationRule> getAll();
+    List<CredentialRecord> getByHolder(Long holderId);
+
+    List<CredentialRecord> getAll();
 }

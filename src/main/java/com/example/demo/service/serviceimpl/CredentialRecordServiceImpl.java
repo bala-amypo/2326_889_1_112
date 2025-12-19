@@ -10,31 +10,37 @@ import com.example.demo.repository.CredentialRecordRepository;
 import com.example.demo.service.CredentialRecordService;
 
 @Service
-public class CredentialRecordServiceImpl implements CredentialRecordService {
+public class CredentialRecordServiceImpl
+        implements CredentialRecordService {
 
     @Autowired
     private CredentialRecordRepository repository;
 
     @Override
-    public CredentialRecord save(CredentialRecord record) {
+    public CredentialRecord create(CredentialRecord record) {
         return repository.save(record);
     }
 
     @Override
     public CredentialRecord update(Long id, CredentialRecord record) {
-        CredentialRecord existing = repository.findById(id).orElse(null);
+        CredentialRecord existing = getById(id);
         record.setId(existing.getId());
         return repository.save(record);
     }
 
     @Override
-    public List<CredentialRecord> findByHolderId(Long holderId) {
-        return repository.findByHolderId(holderId);
+    public CredentialRecord getById(Long id) {
+        return repository.findById(id).orElse(null);
     }
 
     @Override
-    public CredentialRecord findByCode(String credentialCode) {
-        return repository.findByCredentialCode(credentialCode);
+    public CredentialRecord getByCode(String code) {
+        return repository.findByCredentialCode(code).orElse(null);
+    }
+
+    @Override
+    public List<CredentialRecord> getByHolder(Long holderId) {
+        return repository.findByHolderId(holderId);
     }
 
     @Override
