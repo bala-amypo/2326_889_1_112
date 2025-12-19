@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.CredentialHolderProfile;
-import com.example.demo.repository.CredentialHolderRepository;
-import com.example.demo.service.CredentialHoldeProfilerService;
+import com.example.demo.repository.CredentialHolderProfileRepository;
+import com.example.demo.service.CredentialHolderProfilerService;
 
 @Service
 public class CredentialHolderProfileServiceImpl
