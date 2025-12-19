@@ -1,5 +1,7 @@
 package com.example.demo.entity;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -10,42 +12,35 @@ public class VerificationRequest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String applicantName;
-
+    private Long credentialId;
     private String status;
 
-    // 🔹 Empty constructor
-    public VerificationRequest() {}
+    private LocalDateTime requestedAt;
+    private LocalDateTime processedAt;
 
-    // 🔹 Parameterized constructor
-    public VerificationRequest(Long id, String applicantName, String status) {
-        this.id = id;
-        this.applicantName = applicantName;
-        this.status = status;
+    public VerificationRequest() {
+        this.requestedAt = LocalDateTime.now();
+        this.status = "PENDING";
     }
 
-    // 🔹 Getters & Setters
-    public Long getId() {
-        return id;
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public Long getCredentialId() { return credentialId; }
+    public void setCredentialId(Long credentialId) {
+        this.credentialId = credentialId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
+
+    public LocalDateTime getRequestedAt() { return requestedAt; }
+    public void setRequestedAt(LocalDateTime requestedAt) {
+        this.requestedAt = requestedAt;
     }
 
-    public String getApplicantName() {
-        return applicantName;
-    }
-
-    public void setApplicantName(String applicantName) {
-        this.applicantName = applicantName;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
+    public LocalDateTime getProcessedAt() { return processedAt; }
+    public void setProcessedAt(LocalDateTime processedAt) {
+        this.processedAt = processedAt;
     }
 }

@@ -1,5 +1,6 @@
 package com.example.demo.service.impl;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,22 +11,23 @@ import com.example.demo.repository.VerificationRequestRepository;
 import com.example.demo.service.VerificationRequestService;
 
 @Service
-public class VerificationRequestServiceImpl implements VerificationRequestService {
+public class VerificationRequestServiceImpl
+        implements VerificationRequestService {
 
     @Autowired
     private VerificationRequestRepository repository;
 
     @Override
-    public VerificationRequest initiate(VerificationRequest request) {
-        request.setStatus("PENDING");
+    public VerificationRequest create(VerificationRequest request) {
         return repository.save(request);
     }
 
     @Override
-    public VerificationRequest process(Long id) {
-        VerificationRequest request = getById(id);
-        request.setStatus("VERIFIED");
-        return repository.save(request);
+    public VerificationRequest process(Long id, String status) {
+        VerificationRequest req = getById(id);
+        req.setStatus(status);
+        req.setProcessedAt(LocalDateTime.now());
+        return repository.save(req);
     }
 
     @Override
@@ -34,7 +36,7 @@ public class VerificationRequestServiceImpl implements VerificationRequestServic
     }
 
     @Override
-    public List<VerificationRequest> findByCredentialId(Long credentialId) {
+    public List<VerificationRequest> getByCredential(Long credentialId) {
         return repository.findByCredentialId(credentialId);
     }
 

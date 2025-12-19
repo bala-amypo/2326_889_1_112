@@ -19,27 +19,30 @@ public class VerificationRequestController {
     private VerificationRequestService service;
 
     @PostMapping
-    public VerificationRequest initiate(@RequestBody VerificationRequest request) {
-        return service.initiate(request);
+    public VerificationRequest create(@RequestBody VerificationRequest request) {
+        return service.create(request);
     }
 
     @PutMapping("/{id}/process")
-    public VerificationRequest process(@PathVariable Long id) {
-        return service.process(id);
-    }
-
-    @GetMapping("/credential/{credentialId}")
-    public List<VerificationRequest> getByCredential(@PathVariable Long credentialId) {
-        return service.findByCredentialId(credentialId);
+    public VerificationRequest process(
+            @PathVariable Long id,
+            @RequestParam String status) {
+        return service.process(id, status);
     }
 
     @GetMapping("/{id}")
-    public VerificationRequest getById(@PathVariable Long id) {
+    public VerificationRequest get(@PathVariable Long id) {
         return service.getById(id);
     }
 
+    @GetMapping("/credential/{credentialId}")
+    public List<VerificationRequest> byCredential(
+            @PathVariable Long credentialId) {
+        return service.getByCredential(credentialId);
+    }
+
     @GetMapping
-    public List<VerificationRequest> getAll() {
+    public List<VerificationRequest> all() {
         return service.getAll();
     }
 }

@@ -19,23 +19,24 @@ public class CredentialHolderController {
     private CredentialHolderService service;
 
     @PostMapping
-    public CredentialHolder createHolder(@RequestBody CredentialHolder holder) {
-        return service.save(holder);
+    public CredentialHolder create(@RequestBody CredentialHolder holder) {
+        return service.create(holder);
     }
 
     @GetMapping("/{id}")
-    public CredentialHolder getById(@PathVariable Long id) {
+    public CredentialHolder get(@PathVariable Long id) {
         return service.getById(id);
     }
 
     @GetMapping
-    public List<CredentialHolder> getAll() {
+    public List<CredentialHolder> all() {
         return service.getAll();
     }
 
     @PutMapping("/{id}/status")
-    public CredentialHolder updateStatus(@PathVariable Long id,
-                                         @RequestParam boolean active) {
+    public CredentialHolder updateStatus(
+            @PathVariable Long id,
+            @RequestParam Boolean active) {
         return service.updateStatus(id, active);
     }
 }
