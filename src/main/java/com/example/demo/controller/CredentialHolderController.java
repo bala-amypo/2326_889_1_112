@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.entity.CredentialHolderProfile;
-import com.example.demo.service.CredentialHolderService;
+import com.example.demo.service.CredentialHolderProfileService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -16,7 +16,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 public class CredentialHolderController {
 
     @Autowired
-    private CredentialHolderService service;
+    private CredentialHolderProfileService service;
 
     @PostMapping
     public CredentialHolderProfile create(@RequestBody CredentialHolderProfile holder) {
