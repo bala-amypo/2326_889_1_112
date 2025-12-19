@@ -3,9 +3,9 @@ package com.example.demo.service;
 import java.util.List;
 import com.example.demo.entity.CredentialHolder;
 
-public interface CredentialHolderService {
+public interface CredentialHolderProfileService {
 
-    CredentialHolder create(CredentialHolder holder);
+    CredentialHolderProfile create(CredentialHolderPro holder);
 
     CredentialHolder getById(Long id);
 
