@@ -10,8 +10,7 @@ import com.example.demo.repository.CredentialHolderProfileRepository;
 import com.example.demo.service.CredentialHolderProfilerService;
 
 @Service
-public class CredentialHolderProfileServiceImpl
-        implements CredentialHolderProfileService {
+public class CredentialHolderProfileServiceImpl implements CredentialHolderProfileService {
 
     @Autowired
     private CredentialHolderProfileRepository repository;
