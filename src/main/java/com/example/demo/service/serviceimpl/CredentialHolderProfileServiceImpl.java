@@ -5,35 +5,35 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.entity.CredentialHolder;
+import com.example.demo.entity.CredentialHolderProfile;
 import com.example.demo.repository.CredentialHolderRepository;
-import com.example.demo.service.CredentialHolderService;
+import com.example.demo.service.CredentialHoldeProfilerService;
 
 @Service
 public class CredentialHolderProfileServiceImpl
         implements CredentialHolderProfileService {
 
     @Autowired
-    private CredentialHolderRepository repository;
+    private CredentialHolderProfileRepository repository;
 
     @Override
-    public CredentialHolder create(CredentialHolder holder) {
+    public CredentialHolderProfile create(CredentialHolderProfile holder) {
         return repository.save(holder);
     }
 
     @Override
-    public CredentialHolder getById(Long id) {
+    public CredentialHolderProfile getById(Long id) {
         return repository.findById(id).orElse(null);
     }
 
     @Override
-    public List<CredentialHolder> getAll() {
+    public List<CredentialHolderProfile> getAll() {
         return repository.findAll();
     }
 
     @Override
-    public CredentialHolder updateStatus(Long id, Boolean active) {
-        CredentialHolder holder = getById(id);
+    public CredentialHolderProfile updateStatus(Long id, Boolean active) {
+        CredentialHolderProfile holder = getById(id);
         holder.setActive(active);
         return repository.save(holder);
     }
