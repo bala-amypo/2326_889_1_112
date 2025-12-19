@@ -10,34 +10,16 @@ import com.example.demo.repository.VerificationRuleRepository;
 import com.example.demo.service.VerificationRuleService;
 
 @Service
-public class VerificationRuleServiceImpl implements VerificationRuleService {
+public class VerificationRuleServiceImpl
+        implements VerificationRuleService {
 
     @Autowired
     private VerificationRuleRepository repository;
 
     @Override
-    public VerificationRule save(VerificationRule rule) {
+    public VerificationRule create(VerificationRule rule) {
         return repository.save(rule);
     }
 
     @Override
-    public VerificationRule update(Long id, VerificationRule rule) {
-        rule.setId(id);
-        return repository.save(rule);
-    }
-
-    @Override
-    public VerificationRule getById(Long id) {
-        return repository.findById(id).orElse(null);
-    }
-
-    @Override
-    public List<VerificationRule> getActiveRules() {
-        return repository.findByActiveTrue();
-    }
-
-    @Override
-    public List<VerificationRule> getAll() {
-        return repository.findAll();
-    }
-}
+    public VerificationRule
