@@ -9,7 +9,6 @@ public interface CredentialRecordService {
 
     CredentialRecord update(Long id, CredentialRecord record);
 
-    CredentialRecord getById(Long id);
 
     CredentialRecord getByCode(String code);
 

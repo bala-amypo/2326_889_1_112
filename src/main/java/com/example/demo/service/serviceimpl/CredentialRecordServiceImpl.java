@@ -28,10 +28,7 @@ public class CredentialRecordServiceImpl
         return repository.save(record);
     }
 
-    @Override
-    public CredentialRecord getById(Long id) {
-        return repository.findById(id).orElse(null);
-    }
+   
 
     @Override
     public CredentialRecord getByCode(String code) {

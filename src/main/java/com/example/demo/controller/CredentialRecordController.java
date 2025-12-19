@@ -42,11 +42,6 @@ public class CredentialRecordController {
         return service.getByCode(credentialCode);
     }
 
-    @GetMapping("/{id}")
-    public CredentialRecord get(@PathVariable Long id) {
-        return service.getById(id);
-    }
-
     @GetMapping
     public List<CredentialRecord> all() {
         return service.getAll();
