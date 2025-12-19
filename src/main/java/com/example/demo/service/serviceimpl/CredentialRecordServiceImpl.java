@@ -10,8 +10,7 @@ import com.example.demo.repository.CredentialRecordRepository;
 import com.example.demo.service.CredentialRecordService;
 
 @Service
-public class CredentialRecordServiceImpl
-        implements CredentialRecordService {
+public class CredentialRecordServiceImpl implements CredentialRecordService {
 
     @Autowired
     private CredentialRecordRepository repository;
