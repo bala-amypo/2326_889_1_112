@@ -16,23 +16,23 @@ public class CredentialRecordServiceImpl implements CredentialRecordService {
     private CredentialRecordRepository repository;
 
     @Override
-    public CredentialRecordProfile save(CredentialRecord record) {
+    public CredentialRecordProfile save(CredentialRecordProfile record) {
         return repository.save(record);
     }
 
     @Override
-    public List<CredentialRecord> getAll() {
+    public List<CredentialRecordProfile> getAll() {
         return repository.findAll();
     }
 
     @Override
-    public CredentialRecord getById(Long id) {
+    public CredentialRecordProfile getById(Long id) {
         return repository.findById(id).orElse(null);
     }
 
     // 🔴 THIS METHOD WAS MISSING — NOW FIXED
     @Override
-    public CredentialRecord update(Long id, CredentialRecord record) {
+    public CredentialRecordProfile update(Long id, CredentialRecordProfile record) {
         CredentialRecord existing = repository.findById(id).orElse(null);
         if (existing != null) {
             existing.setCredentialType(record.getCredentialType());
