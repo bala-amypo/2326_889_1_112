@@ -5,13 +5,13 @@ import com.example.demo.entity.VerificationRequest;
 
 public interface VerificationRequestService {
 
-    VerificationRequest save(VerificationRequest request);
+    VerificationRequest initiate(VerificationRequest request);
 
-    List<VerificationRequest> getAll();
+    VerificationRequest process(Long id);
 
     VerificationRequest getById(Long id);
 
-    VerificationRequest update(Long id, VerificationRequest request);
+    List<VerificationRequest> findByCredentialId(Long credentialId);
 
-    void delete(Long id);
+    List<VerificationRequest> getAll();
 }

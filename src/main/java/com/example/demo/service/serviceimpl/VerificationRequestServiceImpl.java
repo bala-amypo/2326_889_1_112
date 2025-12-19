@@ -16,13 +16,16 @@ public class VerificationRequestServiceImpl implements VerificationRequestServic
     private VerificationRequestRepository repository;
 
     @Override
-    public VerificationRequest save(VerificationRequest request) {
+    public VerificationRequest initiate(VerificationRequest request) {
+        request.setStatus("PENDING");
         return repository.save(request);
     }
 
     @Override
-    public List<VerificationRequest> getAll() {
-        return repository.findAll();
+    public VerificationRequest process(Long id) {
+        VerificationRequest request = getById(id);
+        request.setStatus("VERIFIED");
+        return repository.save(request);
     }
 
     @Override
@@ -31,18 +34,12 @@ public class VerificationRequestServiceImpl implements VerificationRequestServic
     }
 
     @Override
-    public VerificationRequest update(Long id, VerificationRequest request) {
-        VerificationRequest existing = repository.findById(id).orElse(null);
-        if (existing != null) {
-            existing.setApplicantName(request.getApplicantName());
-            existing.setStatus(request.getStatus());
-            return repository.save(existing);
-        }
-        return null;
+    public List<VerificationRequest> findByCredentialId(Long credentialId) {
+        return repository.findByCredentialId(credentialId);
     }
 
     @Override
-    public void delete(Long id) {
-        repository.deleteById(id);
+    public List<VerificationRequest> getAll() {
+        return repository.findAll();
     }
 }

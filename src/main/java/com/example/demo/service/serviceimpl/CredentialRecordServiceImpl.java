@@ -16,28 +16,29 @@ public class CredentialRecordServiceImpl implements CredentialRecordService {
     private CredentialRecordRepository repository;
 
     @Override
-    public CredentialRecord save(CredentialRecord credential) {
-        return repository.save(credential);
+    public CredentialRecord save(CredentialRecord record) {
+        return repository.save(record);
+    }
+
+    @Override
+    public CredentialRecord update(Long id, CredentialRecord record) {
+        CredentialRecord existing = repository.findById(id).orElse(null);
+        record.setId(existing.getId());
+        return repository.save(record);
+    }
+
+    @Override
+    public List<CredentialRecord> findByHolderId(Long holderId) {
+        return repository.findByHolderId(holderId);
+    }
+
+    @Override
+    public CredentialRecord findByCode(String credentialCode) {
+        return repository.findByCredentialCode(credentialCode);
     }
 
     @Override
     public List<CredentialRecord> getAll() {
         return repository.findAll();
-    }
-
-    @Override
-    public CredentialRecord getById(Long id) {
-        return repository.findById(id).orElse(null);
-    }
-
-    @Override
-    public CredentialRecord update(Long id, CredentialRecord credential) {
-        credential.setId(id);
-        return repository.save(credential);
-    }
-
-    @Override
-    public void delete(Long id) {
-        repository.deleteById(id);
     }
 }

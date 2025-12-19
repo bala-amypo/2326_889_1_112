@@ -7,11 +7,11 @@ public interface VerificationRuleService {
 
     VerificationRule save(VerificationRule rule);
 
-    List<VerificationRule> getAll();
+    VerificationRule update(Long id, VerificationRule rule);
 
     VerificationRule getById(Long id);
 
-    VerificationRule update(Long id, VerificationRule rule);
+    List<VerificationRule> getActiveRules();
 
-    void delete(Long id);
+    List<VerificationRule> getAll();
 }
