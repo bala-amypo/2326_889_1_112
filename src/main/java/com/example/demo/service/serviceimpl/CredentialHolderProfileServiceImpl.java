@@ -10,13 +10,14 @@ import com.example.demo.repository.CredentialHolderRepository;
 import com.example.demo.service.CredentialHolderService;
 
 @Service
-public class CredentialHolderServiceImpl implements CredentialHolderService {
+public class CredentialHolderServiceImpl
+        implements CredentialHolderService {
 
     @Autowired
     private CredentialHolderRepository repository;
 
     @Override
-    public CredentialHolder save(CredentialHolder holder) {
+    public CredentialHolder create(CredentialHolder holder) {
         return repository.save(holder);
     }
 
@@ -31,7 +32,7 @@ public class CredentialHolderServiceImpl implements CredentialHolderService {
     }
 
     @Override
-    public CredentialHolder updateStatus(Long id, boolean active) {
+    public CredentialHolder updateStatus(Long id, Boolean active) {
         CredentialHolder holder = getById(id);
         holder.setActive(active);
         return repository.save(holder);

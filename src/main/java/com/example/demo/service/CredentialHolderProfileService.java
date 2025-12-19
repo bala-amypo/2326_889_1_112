@@ -5,11 +5,11 @@ import com.example.demo.entity.CredentialHolder;
 
 public interface CredentialHolderService {
 
-    CredentialHolder save(CredentialHolder holder);
+    CredentialHolder create(CredentialHolder holder);
 
     CredentialHolder getById(Long id);
 
     List<CredentialHolder> getAll();
 
-    CredentialHolder updateStatus(Long id, boolean active);
+    CredentialHolder updateStatus(Long id, Boolean active);
 }
