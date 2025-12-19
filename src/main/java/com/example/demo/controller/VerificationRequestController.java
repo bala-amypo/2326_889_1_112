@@ -1,26 +1,36 @@
 package com.example.demo.controller;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import com.example.demo.entity.VerificationRequest;
 import com.example.demo.service.VerificationRequestService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
-@RequestMapping("/verification-requests")
+@RequestMapping("/api/verification")
+@Tag(name = "Verification Requests")
 public class VerificationRequestController {
 
     @Autowired
     private VerificationRequestService service;
 
     @PostMapping
-    public VerificationRequest create(@RequestBody VerificationRequest request) {
-        return service.save(request);
+    public VerificationRequest initiate(@RequestBody VerificationRequest request) {
+        return service.initiate(request);
     }
 
-    @GetMapping
-    public List<VerificationRequest> getAll() {
-        return service.getAll();
+    @PutMapping("/{id}/process")
+    public VerificationRequest process(@PathVariable Long id) {
+        return service.process(id);
+    }
+
+    @GetMapping("/credential/{credentialId}")
+    public List<VerificationRequest> getByCredential(@PathVariable Long credentialId) {
+        return service.findByCredentialId(credentialId);
     }
 
     @GetMapping("/{id}")
@@ -28,15 +38,8 @@ public class VerificationRequestController {
         return service.getById(id);
     }
 
-    @PutMapping("/{id}")
-    public VerificationRequest update(
-            @PathVariable Long id,
-            @RequestBody VerificationRequest request) {
-        return service.update(id, request);
-    }
-
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        service.delete(id);
+    @GetMapping
+    public List<VerificationRequest> getAll() {
+        return service.getAll();
     }
 }

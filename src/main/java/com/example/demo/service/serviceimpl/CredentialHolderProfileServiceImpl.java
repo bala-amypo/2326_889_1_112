@@ -1,57 +1,39 @@
-package com.example.demo.service;
+package com.example.demo.service.impl;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.entity.CredentialHolderProfile;
-import com.example.demo.repository.CredentialHolderProfileRepository;
+import com.example.demo.entity.CredentialHolder;
+import com.example.demo.repository.CredentialHolderRepository;
+import com.example.demo.service.CredentialHolderService;
 
 @Service
-public class CredentialHolderProfileServiceImpl implements CredentialHolderProfileService {
+public class CredentialHolderServiceImpl implements CredentialHolderService {
 
     @Autowired
-    private CredentialHolderProfileRepository repository;
+    private CredentialHolderRepository repository;
 
     @Override
-    public CredentialHolderProfile savedata(CredentialHolderProfile st) {
-        return repository.save(st);
+    public CredentialHolder save(CredentialHolder holder) {
+        return repository.save(holder);
     }
 
     @Override
-    public List<CredentialHolderProfile> retdata() {
+    public CredentialHolder getById(Long id) {
+        return repository.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<CredentialHolder> getAll() {
         return repository.findAll();
     }
 
     @Override
-    public CredentialHolderProfile getidval(Long id) {
-        Optional<CredentialHolderProfile> optionalProfile = repository.findById(id);
-        if (optionalProfile.isPresent()) {
-            return optionalProfile.get();
-        } else {
-            throw new RuntimeException("CredentialHolderProfile not found with id: " + id);
-        }
+    public CredentialHolder updateStatus(Long id, boolean active) {
+        CredentialHolder holder = getById(id);
+        holder.setActive(active);
+        return repository.save(holder);
     }
-
-    @Override
-    public CredentialHolderProfile upid(Long id, CredentialHolderProfile st) {
-        Optional<CredentialHolderProfile> optionalProfile = repository.findById(id);
-        if (optionalProfile.isPresent()) {
-            CredentialHolderProfile existingProfile = optionalProfile.get();
-
-            // Update the fields as needed
-            existingProfile.setFullName(st.getFullName()); // example field
-            existingProfile.setEmail(st.getEmail());
-            existingProfile.setActive(st.getActive());
-            existingProfile.setOrganization(st.getOrganization());
-            // add more fields if needed
-
-            return repository.save(existingProfile);
-        } else {
-            throw new RuntimeException("CredentialHolderProfile not found with id: " + id);
-        }
-    }
-
 }
