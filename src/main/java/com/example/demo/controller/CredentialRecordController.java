@@ -34,8 +34,5 @@ public class CredentialRecordController {
         return service.update(id, credential);
     }
 
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        service.delete(id);
-    }
+  
 }
