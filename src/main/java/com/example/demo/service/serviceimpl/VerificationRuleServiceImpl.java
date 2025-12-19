@@ -1,4 +1,4 @@
-package com.example.demo.service.impl;
+package com.example.demo.service.serviceimpl;
 
 import java.util.List;
 
@@ -16,22 +16,22 @@ public class VerificationRuleServiceImpl implements VerificationRuleService {
     private VerificationRuleRepository repository;
 
     @Override
-    public VerificationRule saveRule(VerificationRule rule) {
+    public VerificationRule save(VerificationRule rule) {
         return repository.save(rule);
     }
 
     @Override
-    public List<VerificationRule> getAllRules() {
+    public List<VerificationRule> getAll() {
         return repository.findAll();
     }
 
     @Override
-    public VerificationRule getRuleById(Long id) {
+    public VerificationRule getById(Long id) {
         return repository.findById(id).orElse(null);
     }
 
     @Override
-    public VerificationRule updateRule(Long id, VerificationRule rule) {
+    public VerificationRule update(Long id, VerificationRule rule) {
         VerificationRule existing = repository.findById(id).orElse(null);
         if (existing != null) {
             existing.setRuleCode(rule.getRuleCode());
@@ -45,7 +45,7 @@ public class VerificationRuleServiceImpl implements VerificationRuleService {
     }
 
     @Override
-    public void deleteRule(Long id) {
+    public void delete(Long id) {
         repository.deleteById(id);
     }
 }

@@ -8,30 +8,21 @@ import org.springframework.web.bind.annotation.*;
 import com.example.demo.entity.VerificationRule;
 import com.example.demo.service.VerificationRuleService;
 
-import io.swagger.v3.oas.annotations.tags.Tag;
-
 @RestController
-@RequestMapping("/api/rules")
-@Tag(name = "Verification Rules")
+@RequestMapping("/verification-rules")
 public class VerificationRuleController {
 
     @Autowired
     private VerificationRuleService service;
 
     @PostMapping
-    public VerificationRule create(@RequestBody VerificationRule rule) {
+    public VerificationRule save(@RequestBody VerificationRule rule) {
         return service.save(rule);
     }
 
-    @PutMapping("/{id}")
-    public VerificationRule update(@PathVariable Long id,
-                                   @RequestBody VerificationRule rule) {
-        return service.update(id, rule);
-    }
-
-    @GetMapping("/active")
-    public List<VerificationRule> getActiveRules() {
-        return service.getActiveRules();
+    @GetMapping
+    public List<VerificationRule> getAll() {
+        return service.getAll();
     }
 
     @GetMapping("/{id}")
@@ -39,8 +30,15 @@ public class VerificationRuleController {
         return service.getById(id);
     }
 
-    @GetMapping
-    public List<VerificationRule> getAll() {
-        return service.getAll();
+    @PutMapping("/{id}")
+    public VerificationRule update(
+            @PathVariable Long id,
+            @RequestBody VerificationRule rule) {
+        return service.update(id, rule);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        service.delete(id);
     }
 }
