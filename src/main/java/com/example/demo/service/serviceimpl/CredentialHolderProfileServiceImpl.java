@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.CredentialHolderProfile;
 import com.example.demo.repository.CredentialHolderProfileRepository;
-import com.example.demo.service.CredentialHolderProfilerService;
+import com.example.demo.service.CredentialHolderProfileService;
 
 @Service
 public class CredentialHolderProfileServiceImpl implements CredentialHolderProfileService {
