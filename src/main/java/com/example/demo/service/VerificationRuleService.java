@@ -5,13 +5,11 @@ import com.example.demo.entity.VerificationRule;
 
 public interface VerificationRuleService {
 
-    VerificationRule save(VerificationRule rule);
+    VerificationRule createRule(VerificationRule rule);
 
-    List<VerificationRule> getAll();
+    VerificationRule updateRule(Long id, VerificationRule updatedRule);
 
-    VerificationRule getById(Long id);
+    List<VerificationRule> getActiveRules();
 
-    VerificationRule update(Long id, VerificationRule rule);
-
-    void delete(Long id);
+    List<VerificationRule> getAllRules();
 }
