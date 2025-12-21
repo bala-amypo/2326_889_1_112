@@ -2,43 +2,44 @@ package com.example.demo.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.entity.VerificationRule;
 import com.example.demo.service.VerificationRuleService;
 
 @RestController
-@RequestMapping("/verification-rules")
+@RequestMapping("/api/rules")
 public class VerificationRuleController {
 
-    @Autowired
-    private VerificationRuleService service;
+    private final VerificationRuleService service;
 
+    public VerificationRuleController(VerificationRuleService service) {
+        this.service = service;
+    }
+
+    // POST /api/rules → Create rule
     @PostMapping
-    public VerificationRule save(@RequestBody VerificationRule rule) {
-        return service.save(rule);
+    public VerificationRule createRule(@RequestBody VerificationRule rule) {
+        return service.createRule(rule);
     }
 
-    @GetMapping
-    public List<VerificationRule> getAll() {
-        return service.getAll();
-    }
-
-    @GetMapping("/{id}")
-    public VerificationRule getById(@PathVariable Long id) {
-        return service.getById(id);
-    }
-
+    // PUT /api/rules/{id} → Update rule
     @PutMapping("/{id}")
-    public VerificationRule update(
+    public VerificationRule updateRule(
             @PathVariable Long id,
             @RequestBody VerificationRule rule) {
-        return service.update(id, rule);
+        return service.updateRule(id, rule);
     }
 
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        service.delete(id);
+    // GET /api/rules/active → List active rules
+    @GetMapping("/active")
+    public List<VerificationRule> getActiveRules() {
+        return service.getActiveRules();
+    }
+
+    // GET /api/rules → List all rules
+    @GetMapping
+    public List<VerificationRule> getAllRules() {
+        return service.getAllRules();
     }
 }
