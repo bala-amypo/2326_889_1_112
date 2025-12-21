@@ -1,45 +1,80 @@
 package com.example.demo.entity;
 
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
-import jakarta.persistence.*;
-
 @Entity
-@Table(name = "verification_request")
+@Table(name = "verification_requests")
 public class VerificationRequest {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private Long credentialId;
-    private String status;
+
+    @Column(nullable = false)
+    private String status;   // PENDING, APPROVED, REJECTED
+
+    private String remarks;
 
     private LocalDateTime requestedAt;
+
     private LocalDateTime processedAt;
 
+    // ---------- Constructors ----------
     public VerificationRequest() {
-        this.requestedAt = LocalDateTime.now();
-        this.status = "PENDING";
     }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public VerificationRequest(Long credentialId, String status, String remarks) {
+        this.credentialId = credentialId;
+        this.status = status;
+        this.remarks = remarks;
+        this.requestedAt = LocalDateTime.now();
+    }
 
-    public Long getCredentialId() { return credentialId; }
+    // ---------- Getters & Setters ----------
+    public Long getId() {
+        return id;
+    }
+
+    public Long getCredentialId() {
+        return credentialId;
+    }
+
     public void setCredentialId(Long credentialId) {
         this.credentialId = credentialId;
     }
 
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    public String getStatus() {
+        return status;
+    }
 
-    public LocalDateTime getRequestedAt() { return requestedAt; }
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
+
+    public LocalDateTime getRequestedAt() {
+        return requestedAt;
+    }
+
     public void setRequestedAt(LocalDateTime requestedAt) {
         this.requestedAt = requestedAt;
     }
 
-    public LocalDateTime getProcessedAt() { return processedAt; }
+    public LocalDateTime getProcessedAt() {
+        return processedAt;
+    }
+
     public void setProcessedAt(LocalDateTime processedAt) {
         this.processedAt = processedAt;
     }

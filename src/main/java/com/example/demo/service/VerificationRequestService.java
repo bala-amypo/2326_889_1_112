@@ -1,17 +1,19 @@
 package com.example.demo.service;
 
-import java.util.List;
 import com.example.demo.entity.VerificationRequest;
+import java.util.List;
 
 public interface VerificationRequestService {
 
-    VerificationRequest create(VerificationRequest request);
+    // Initiate verification
+    VerificationRequest initiateVerification(VerificationRequest request);
 
-    VerificationRequest process(Long id, String status);
+    // Process verification (check expiry, update status, log audit)
+    VerificationRequest processVerification(Long requestId);
 
-    VerificationRequest getById(Long id);
+    // Get requests for a credential
+    List<VerificationRequest> getRequestsByCredential(Long credentialId);
 
-    List<VerificationRequest> getByCredential(Long credentialId);
-
-    List<VerificationRequest> getAll();
+    // Get all verification requests
+    List<VerificationRequest> getAllRequests();
 }
