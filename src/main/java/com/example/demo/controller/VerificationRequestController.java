@@ -18,25 +18,21 @@ public class VerificationRequestController {
         this.service = service;
     }
 
-    // POST /api/verification
     @PostMapping
     public VerificationRequest initiate(@RequestBody VerificationRequest request) {
         return service.initiateVerification(request);
     }
 
-    // PUT /api/verification/{id}/process
     @PutMapping("/{id}/process")
     public VerificationRequest process(@PathVariable Long id) {
         return service.processVerification(id);
     }
 
-    // GET /api/verification/credential/{credentialId}
     @GetMapping("/credential/{credentialId}")
     public List<VerificationRequest> byCredential(@PathVariable Long credentialId) {
         return service.getRequestsByCredential(credentialId);
     }
 
-    // GET /api/verification/{id}
     @GetMapping("/{id}")
     public VerificationRequest getById(@PathVariable Long id) {
         return service.getAllRequests()
@@ -46,7 +42,6 @@ public class VerificationRequestController {
                 .orElseThrow(() -> new RuntimeException("Request not found"));
     }
 
-    // GET /api/verification
     @GetMapping
     public List<VerificationRequest> getAll() {
         return service.getAllRequests();

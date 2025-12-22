@@ -17,13 +17,11 @@ public class VerificationRuleController {
         this.service = service;
     }
 
-    // POST /api/rules → Create rule
     @PostMapping
     public VerificationRule createRule(@RequestBody VerificationRule rule) {
         return service.createRule(rule);
     }
 
-    // PUT /api/rules/{id} → Update rule
     @PutMapping("/{id}")
     public VerificationRule updateRule(
             @PathVariable Long id,
@@ -31,13 +29,11 @@ public class VerificationRuleController {
         return service.updateRule(id, rule);
     }
 
-    // GET /api/rules/active → List active rules
     @GetMapping("/active")
     public List<VerificationRule> getActiveRules() {
         return service.getActiveRules();
     }
 
-    // GET /api/rules → List all rules
     @GetMapping
     public List<VerificationRule> getAllRules() {
         return service.getAllRules();
