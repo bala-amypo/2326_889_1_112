@@ -15,7 +15,7 @@ public class VerificationRequest {
     private Long credentialId;
 
     @Column(nullable = false)
-    private String status;   // PENDING, APPROVED, REJECTED
+    private String status;   
 
     private String remarks;
 
@@ -23,7 +23,6 @@ public class VerificationRequest {
 
     private LocalDateTime processedAt;
 
-    // ---------- Constructors ----------
     public VerificationRequest() {
     }
 
@@ -34,7 +33,6 @@ public class VerificationRequest {
         this.requestedAt = LocalDateTime.now();
     }
 
-    // ---------- Getters & Setters ----------
     public Long getId() {
         return id;
     }

@@ -44,10 +44,8 @@ public class CredentialRecord {
     )
     private Set<VerificationRule> rules;
 
-    // 🔹 Empty constructor
     public CredentialRecord() {}
 
-    // 🔹 Getters & Setters
     public Long getId() {
         return id;
     }

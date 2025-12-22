@@ -15,7 +15,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User registerUser(User user) {
-        // simple encoding for test compatibility
         String encodedPassword = user.getPassword() + "_ENC";
         user.setPassword(encodedPassword);
         return repository.save(user);

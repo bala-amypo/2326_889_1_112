@@ -28,7 +28,6 @@ public class VerificationRule {
     @Column(nullable = false)
     private Boolean active = true;
 
-    // ===== Constructors =====
     public VerificationRule() {
     }
 
@@ -43,7 +42,6 @@ public class VerificationRule {
         this.active = active;
     }
 
-    // ===== Getters & Setters =====
     public Long getId() {
         return id;
     }
