@@ -1,15 +1,9 @@
 package com.example.demo.service;
 
-import java.util.List;
 import com.example.demo.entity.AuditTrailRecord;
+import java.util.List;
 
 public interface AuditTrailService {
-
-    AuditTrailRecord save(AuditTrailRecord record);
-
-    List<AuditTrailRecord> getAll();
-
-    AuditTrailRecord getById(Long id);
-
-   
+    AuditTrailRecord logEvent(AuditTrailRecord record);
+    List<AuditTrailRecord> getLogsByCredential(Long credentialId);
 }
