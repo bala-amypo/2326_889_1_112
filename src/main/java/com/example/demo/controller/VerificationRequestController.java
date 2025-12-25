@@ -2,48 +2,32 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.VerificationRequest;
 import com.example.demo.service.VerificationRequestService;
-import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/verification")
-@Tag(name = "Verification Requests")
+@RequestMapping("/api/verifications")
 public class VerificationRequestController {
-
-    private final VerificationRequestService service;
-
-    public VerificationRequestController(VerificationRequestService service) {
-        this.service = service;
+    
+    private final VerificationRequestService verificationService;
+    
+    public VerificationRequestController(VerificationRequestService verificationService) {
+        this.verificationService = verificationService;
     }
-
+    
     @PostMapping
-    public VerificationRequest initiate(@RequestBody VerificationRequest request) {
-        return service.initiateVerification(request);
+    public ResponseEntity<VerificationRequest> create(@RequestBody VerificationRequest request) {
+        return ResponseEntity.ok(verificationService.initiateVerification(request));
     }
-
-    @PutMapping("/{id}/process")
-    public VerificationRequest process(@PathVariable Long id) {
-        return service.processVerification(id);
+    
+    @PostMapping("/{id}/process")
+    public ResponseEntity<VerificationRequest> process(@PathVariable Long id) {
+        return ResponseEntity.ok(verificationService.processVerification(id));
     }
-
+    
     @GetMapping("/credential/{credentialId}")
-    public List<VerificationRequest> byCredential(@PathVariable Long credentialId) {
-        return service.getRequestsByCredential(credentialId);
-    }
-
-    @GetMapping("/{id}")
-    public VerificationRequest getById(@PathVariable Long id) {
-        return service.getAllRequests()
-                .stream()
-                .filter(r -> r.getId().equals(id))
-                .findFirst()
-                .orElseThrow(() -> new RuntimeException("Request not found"));
-    }
-
-    @GetMapping
-    public List<VerificationRequest> getAll() {
-        return service.getAllRequests();
+    public ResponseEntity<List<VerificationRequest>> getByCredential(@PathVariable Long credentialId) {
+        return ResponseEntity.ok(verificationService.getRequestsByCredential(credentialId));
     }
 }

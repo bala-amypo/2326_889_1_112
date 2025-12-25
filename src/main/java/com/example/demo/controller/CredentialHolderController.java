@@ -1,42 +1,32 @@
 package com.example.demo.controller;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
 import com.example.demo.entity.CredentialHolderProfile;
 import com.example.demo.service.CredentialHolderProfileService;
-
-import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/holders")
-@Tag(name = "Credential Holders")
 public class CredentialHolderController {
-
-    @Autowired
-    private CredentialHolderProfileService service;
-
+    
+    private final CredentialHolderProfileService holderService;
+    
+    public CredentialHolderController(CredentialHolderProfileService holderService) {
+        this.holderService = holderService;
+    }
+    
     @PostMapping
-    public CredentialHolderProfile create(@RequestBody CredentialHolderProfile holder) {
-        return service.create(holder);
+    public ResponseEntity<CredentialHolderProfile> create(@RequestBody CredentialHolderProfile profile) {
+        return ResponseEntity.ok(holderService.createHolder(profile));
     }
-
+    
     @GetMapping("/{id}")
-    public CredentialHolderProfile get(@PathVariable Long id) {
-        return service.getById(id);
+    public ResponseEntity<CredentialHolderProfile> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(holderService.getHolderById(id));
     }
-
-    @GetMapping
-    public List<CredentialHolderProfile> all() {
-        return service.getAll();
-    }
-
+    
     @PutMapping("/{id}/status")
-    public CredentialHolderProfile updateStatus(
-            @PathVariable Long id,
-            @RequestParam Boolean active) {
-        return service.updateStatus(id, active);
+    public ResponseEntity<CredentialHolderProfile> updateStatus(@PathVariable Long id, @RequestParam boolean active) {
+        return ResponseEntity.ok(holderService.updateStatus(id, active));
     }
 }
