@@ -1,8 +1,9 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "verification_requests")
 public class VerificationRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -10,6 +11,8 @@ public class VerificationRequest {
     
     private Long credentialId;
     private String status;
+    
+    public VerificationRequest() {}
     
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }

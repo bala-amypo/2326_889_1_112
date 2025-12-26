@@ -1,11 +1,12 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Table(name = "credential_records")
 public class CredentialRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,13 +21,15 @@ public class CredentialRecord {
     private LocalDate expiryDate;
     private String metadataJson;
     
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "credential_rules",
         joinColumns = @JoinColumn(name = "credential_id"),
         inverseJoinColumns = @JoinColumn(name = "rule_id")
     )
     private Set<VerificationRule> rules = new HashSet<>();
+    
+    public CredentialRecord() {}
     
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }

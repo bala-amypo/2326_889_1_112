@@ -1,8 +1,9 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "credential_holder_profiles")
 public class CredentialHolderProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -11,6 +12,8 @@ public class CredentialHolderProfile {
     private String email;
     private String organization;
     private Boolean active;
+    
+    public CredentialHolderProfile() {}
     
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }

@@ -1,8 +1,9 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "verification_rules")
 public class VerificationRule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -10,6 +11,8 @@ public class VerificationRule {
     
     private String ruleCode;
     private Boolean active;
+    
+    public VerificationRule() {}
     
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }

@@ -1,9 +1,10 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "audit_trail_records")
 public class AuditTrailRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -11,6 +12,8 @@ public class AuditTrailRecord {
     
     private Long credentialId;
     private LocalDateTime loggedAt;
+    
+    public AuditTrailRecord() {}
     
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
