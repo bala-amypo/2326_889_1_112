@@ -14,7 +14,7 @@ public class SwaggerConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .servers(List.of(
-                        new Server().url("/")   // let proxy resolve real https host
+                        new Server().url("https://9295.pro604cr.amypo.ai/")   // let proxy resolve real https host
                 ));
     }
 }
