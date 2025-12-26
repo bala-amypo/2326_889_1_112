@@ -16,6 +16,10 @@ public class CredentialRecordServiceImpl implements CredentialRecordService {
         this.credentialRepo = credentialRepo;
     }
     
+    public CredentialRecordRepository getCredentialRepo() {
+        return credentialRepo;
+    }
+    
     @Override
     public CredentialRecord createCredential(CredentialRecord record) {
         if (record.getExpiryDate() != null && record.getExpiryDate().isBefore(LocalDate.now())) {
@@ -43,20 +47,5 @@ public class CredentialRecordServiceImpl implements CredentialRecordService {
     @Override
     public CredentialRecord getCredentialByCode(String code) {
         return credentialRepo.findByCredentialCode(code).orElse(null);
-    }
-    
-    @Override
-    public CredentialRecord getCredentialById(Long id) {
-        return credentialRepo.findById(id).orElse(null);
-    }
-    
-    @Override
-    public List<CredentialRecord> getAllCredentials() {
-        return credentialRepo.findAll();
-    }
-    
-    @Override
-    public void deleteCredential(Long id) {
-        credentialRepo.deleteById(id);
     }
 }
