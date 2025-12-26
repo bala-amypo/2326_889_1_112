@@ -4,7 +4,6 @@ import com.example.demo.entity.CredentialRecord;
 import com.example.demo.service.CredentialRecordService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -35,21 +34,5 @@ public class CredentialRecordController {
     @GetMapping("/code/{code}")
     public ResponseEntity<CredentialRecord> getByCode(@PathVariable String code) {
         return ResponseEntity.ok(credentialService.getCredentialByCode(code));
-    }
-    
-    @GetMapping("/{id}")
-    public ResponseEntity<CredentialRecord> getById(@PathVariable Long id) {
-        return ResponseEntity.ok(credentialService.getCredentialById(id));
-    }
-    
-    @GetMapping
-    public ResponseEntity<List<CredentialRecord>> getAll() {
-        return ResponseEntity.ok(credentialService.getAllCredentials());
-    }
-    
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        credentialService.deleteCredential(id);
-        return ResponseEntity.noContent().build();
     }
 }

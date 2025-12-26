@@ -17,7 +17,7 @@ public class AuditTrailController {
     }
     
     @PostMapping
-    public ResponseEntity<AuditTrailRecord> create(@RequestBody AuditTrailRecord record) {
+    public ResponseEntity<AuditTrailRecord> log(@RequestBody AuditTrailRecord record) {
         return ResponseEntity.ok(auditService.logEvent(record));
     }
     

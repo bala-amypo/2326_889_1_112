@@ -4,10 +4,9 @@ import com.example.demo.entity.VerificationRequest;
 import com.example.demo.service.VerificationRequestService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 
 @RestController
-@RequestMapping("/api/verifications")
+@RequestMapping("/api/verification")
 public class VerificationRequestController {
     
     private final VerificationRequestService verificationService;
@@ -17,17 +16,7 @@ public class VerificationRequestController {
     }
     
     @PostMapping
-    public ResponseEntity<VerificationRequest> create(@RequestBody VerificationRequest request) {
+    public ResponseEntity<VerificationRequest> initiate(@RequestBody VerificationRequest request) {
         return ResponseEntity.ok(verificationService.initiateVerification(request));
-    }
-    
-    @PostMapping("/{id}/process")
-    public ResponseEntity<VerificationRequest> process(@PathVariable Long id) {
-        return ResponseEntity.ok(verificationService.processVerification(id));
-    }
-    
-    @GetMapping("/credential/{credentialId}")
-    public ResponseEntity<List<VerificationRequest>> getByCredential(@PathVariable Long credentialId) {
-        return ResponseEntity.ok(verificationService.getRequestsByCredential(credentialId));
     }
 }
