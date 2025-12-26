@@ -12,12 +12,9 @@ public class SwaggerConfig {
 
     @Bean
     public OpenAPI customOpenAPI() {
-
-        String publicUrl = "https://a890419d2f8d-8376.pro604cr.amypo.ai";
-
         return new OpenAPI()
                 .servers(List.of(
-                        new Server().url(publicUrl)
+                        new Server().url("/")   // let proxy resolve real https host
                 ));
     }
 }
