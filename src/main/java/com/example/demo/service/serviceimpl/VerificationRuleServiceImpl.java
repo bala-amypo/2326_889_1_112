@@ -14,6 +14,10 @@ public class VerificationRuleServiceImpl implements VerificationRuleService {
         this.ruleRepo = ruleRepo;
     }
     
+    public VerificationRuleRepository getRuleRepo() {
+        return ruleRepo;
+    }
+    
     @Override
     public VerificationRule createRule(VerificationRule rule) {
         return ruleRepo.save(rule);

@@ -23,7 +23,7 @@ public class CredentialHolderProfileServiceImpl implements CredentialHolderProfi
     @Override
     public CredentialHolderProfile getHolderById(Long id) {
         return holderRepo.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Holder not found"));
+            .orElseThrow(() -> new ResourceNotFoundException("Holder not found"));
     }
     
     @Override

@@ -8,7 +8,4 @@ public interface CredentialRecordService {
     CredentialRecord updateCredential(Long id, CredentialRecord update);
     List<CredentialRecord> getCredentialsByHolder(Long holderId);
     CredentialRecord getCredentialByCode(String code);
-    CredentialRecord getCredentialById(Long id);
-    List<CredentialRecord> getAllCredentials();
-    void deleteCredential(Long id);
 }
