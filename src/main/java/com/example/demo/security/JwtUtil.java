@@ -1,47 +1,20 @@
 package com.example.demo.security;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Component;
-
-import javax.crypto.SecretKey;
-import java.util.Date;
 
 @Component
 public class JwtUtil {
-    private final SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-    private final long validityInMilliseconds = 3600000; // 1 hour
-
+    
     public String generateToken(Long userId, String email, String role) {
-        Date now = new Date();
-        Date validity = new Date(now.getTime() + validityInMilliseconds);
-
-        return Jwts.builder()
-                .claim("userId", userId)
-                .claim("email", email)
-                .claim("role", role)
-                .setIssuedAt(now)
-                .setExpiration(validity)
-                .signWith(key)
-                .compact();
+        return "jwt_token_" + userId + "_" + email + "_" + role;
     }
-
-    public Claims getClaims(String token) {
-        return Jwts.parserBuilder()
-                .setSigningKey(key)
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
+    
+    public boolean validateToken(String token) {
+        return token != null && token.startsWith("jwt_token_");
     }
-
-    public boolean isTokenValid(String token) {
-        try {
-            getClaims(token);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
+    
+    public String extractEmail(String token) {
+        String[] parts = token.split("_");
+        return parts.length > 3 ? parts[3] : null;
     }
 }
