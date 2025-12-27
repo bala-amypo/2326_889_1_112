@@ -1,35 +1,36 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.entity.CredentialHolderProfile;
-import com.example.demo.exception.ResourceNotFoundException;
-import com.example.demo.repository.CredentialHolderProfileRepository;
-import com.example.demo.service.CredentialHolderProfileService;
+import com.example.demo.entity.AuditTrailRecord;
+import com.example.demo.repository.AuditTrailRecordRepository;
+import com.example.demo.service.AuditTrailService;
+
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 @Service
-public class CredentialHolderProfileServiceImpl implements CredentialHolderProfileService {
-    
-    private final CredentialHolderProfileRepository holderRepo;
-    
-    public CredentialHolderProfileServiceImpl(CredentialHolderProfileRepository holderRepo) {
-        this.holderRepo = holderRepo;
-    }
-    
+@RequiredArgsConstructor
+public class AuditTrailServiceImpl implements AuditTrailService {
+
+    private final AuditTrailRecordRepository repo;
+
     @Override
-    public CredentialHolderProfile createHolder(CredentialHolderProfile profile) {
-        return holderRepo.save(profile);
+    public AuditTrailRecord logEvent(AuditTrailRecord record) {
+        if (record.getLoggedAt() == null) {
+            record.setLoggedAt(LocalDateTime.now());
+        }
+        return repo.save(record);
     }
-    
+
     @Override
-    public CredentialHolderProfile getHolderById(Long id) {
-        return holderRepo.findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException("Holder not found"));
+    public List<AuditTrailRecord> getLogsByCredential(Long credentialId) {
+        return repo.findByCredentialId(credentialId);
     }
-    
+
     @Override
-    public CredentialHolderProfile updateStatus(Long id, boolean active) {
-        CredentialHolderProfile profile = getHolderById(id);
-        profile.setActive(active);
-        return holderRepo.save(profile);
+    public List<AuditTrailRecord> getAllLogs() {
+        return repo.findAll();
     }
 }
