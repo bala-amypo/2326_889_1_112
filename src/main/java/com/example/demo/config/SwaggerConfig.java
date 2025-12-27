@@ -23,7 +23,7 @@ public class SwaggerConfig {
                         .version("1.0")
                         .description("API documentation with JWT Authorization"))
                 .servers(List.of(
-                        new Server().url("https://9295.32procr.amypo.ai/")
+                        new Server().url("https://9295.pro604cr.amypo.ai/")
                 ))
                 // 🔐 Apply security globally
                 .addSecurityItem(new SecurityRequirement().addList(SECURITY_SCHEME_NAME))
