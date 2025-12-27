@@ -25,7 +25,6 @@ public class VerificationRequestServiceImpl implements VerificationRequestServic
             VerificationRequestRepository verificationRequestRepo,
             CredentialRecordService credentialService,
             AuditTrailService auditService) {
-
         this.verificationRequestRepo = verificationRequestRepo;
         this.credentialService = credentialService;
         this.auditService = auditService;
@@ -39,25 +38,21 @@ public class VerificationRequestServiceImpl implements VerificationRequestServic
 
     @Override
     public VerificationRequest processVerification(Long requestId) {
-
         VerificationRequest request = verificationRequestRepo.findById(requestId)
                 .orElseThrow(() ->
                         new ResourceNotFoundException("Verification request not found"));
 
-        // ✅ Fetch credential using EXISTING service method
-        CredentialRecord credential =
-                credentialService.getCredentialByCode(
-                        request.getCredentialId().toString()
-                );
+        CredentialRecord credential = credentialService.getCredentialByCode(
+                request.getCredentialId().toString()
+        );
 
-        boolean expired =
-                credential.getExpiryDate() != null &&
-                credential.getExpiryDate().isBefore(LocalDate.now());
+        boolean expired = credential.getExpiryDate() != null &&
+                          credential.getExpiryDate().isBefore(LocalDate.now());
 
         request.setStatus(expired ? "FAILED" : "SUCCESS");
         verificationRequestRepo.save(request);
 
-        // ✅ Audit log
+        // Audit log
         AuditTrailRecord audit = new AuditTrailRecord();
         audit.setCredentialId(request.getCredentialId());
         audit.setLoggedAt(LocalDateTime.now());
