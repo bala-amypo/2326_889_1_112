@@ -28,33 +28,29 @@ public class VerificationRequestServiceImpl implements VerificationRequestServic
     @Autowired
     private AuditTrailService auditService;
 
+    // REQUIRED by VerificationRequestService
     @Override
-    public VerificationRequest save(VerificationRequest request) {
+    public VerificationRequest initiateVerification(VerificationRequest request) {
         return verificationRequestRepo.save(request);
     }
 
-    @Override
-    public VerificationRequest getById(Long id) {
-        return verificationRequestRepo.findById(id)
-                .orElseThrow(() ->
-                        new ResourceNotFoundException("Verification request not found"));
-    }
-
-    @Override
-    public List<VerificationRequest> getByCredential(Long credentialId) {
-        return verificationRequestRepo.findByCredentialId(credentialId);
-    }
-
-    // ✅ THIS FIXES t62_processVerification_expired
+    // REQUIRED by VerificationRequestService
     @Override
     public VerificationRequest processVerification(Long requestId) {
 
         VerificationRequest request = verificationRequestRepo.findById(requestId)
                 .orElseThrow(() ->
-                        new ResourceNotFoundException("Request not found"));
+                        new ResourceNotFoundException("Verification request not found"));
 
-        CredentialRecord credential =
-                credentialService.getidval(request.getCredentialId());
+        // Get all credentials of the holder
+        List<CredentialRecord> credentials =
+                credentialService.getCredentialsByHolder(request.getHolderId());
+
+        CredentialRecord credential = credentials.stream()
+                .filter(c -> c.getId().equals(request.getCredentialId()))
+                .findFirst()
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Credential not found"));
 
         boolean expired =
                 credential.getExpiryDate() != null &&
@@ -69,5 +65,11 @@ public class VerificationRequestServiceImpl implements VerificationRequestServic
         auditService.logEvent(audit);
 
         return request;
+    }
+
+    // REQUIRED by VerificationRequestService
+    @Override
+    public List<VerificationRequest> getRequestsByCredential(Long credentialId) {
+        return verificationRequestRepo.findByCredentialId(credentialId);
     }
 }
