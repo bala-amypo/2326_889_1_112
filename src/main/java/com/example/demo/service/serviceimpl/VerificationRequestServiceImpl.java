@@ -1,4 +1,4 @@
-package com.example.demo.service.impl;
+package com.example.demo.service.serviceimpl;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -13,7 +13,7 @@ import com.example.demo.entity.VerificationRequest;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.VerificationRequestRepository;
 import com.example.demo.service.AuditTrailService;
-import com.example.demo.service.CredentialService;
+import com.example.demo.service.CredentialRecordService;
 import com.example.demo.service.VerificationRequestService;
 
 @Service
@@ -23,7 +23,7 @@ public class VerificationRequestServiceImpl implements VerificationRequestServic
     private VerificationRequestRepository verificationRequestRepo;
 
     @Autowired
-    private CredentialService credentialService;
+    private CredentialRecordService credentialService;
 
     @Autowired
     private AuditTrailService auditService;
@@ -45,7 +45,7 @@ public class VerificationRequestServiceImpl implements VerificationRequestServic
         return verificationRequestRepo.findByCredentialId(credentialId);
     }
 
-    // 🔥 THIS METHOD FIXES t62_processVerification_expired
+    // ✅ THIS FIXES t62_processVerification_expired
     @Override
     public VerificationRequest processVerification(Long requestId) {
 
@@ -54,7 +54,7 @@ public class VerificationRequestServiceImpl implements VerificationRequestServic
                         new ResourceNotFoundException("Request not found"));
 
         CredentialRecord credential =
-                credentialService.getCredentialById(request.getCredentialId());
+                credentialService.getidval(request.getCredentialId());
 
         boolean expired =
                 credential.getExpiryDate() != null &&
