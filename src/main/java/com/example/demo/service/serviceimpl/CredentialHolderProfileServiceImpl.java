@@ -1,36 +1,52 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.entity.AuditTrailRecord;
-import com.example.demo.repository.AuditTrailRecordRepository;
-import com.example.demo.service.AuditTrailService;
+import com.example.demo.entity.CredentialHolderProfile;
+import com.example.demo.exception.ResourceNotFoundException;
+import com.example.demo.repository.CredentialHolderProfileRepository;
+import com.example.demo.service.CredentialHolderProfileService;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class AuditTrailServiceImpl implements AuditTrailService {
+public class CredentialHolderProfileServiceImpl
+        implements CredentialHolderProfileService {
 
-    private final AuditTrailRecordRepository repo;
+    private final CredentialHolderProfileRepository repository;
 
     @Override
-    public AuditTrailRecord logEvent(AuditTrailRecord record) {
-        if (record.getLoggedAt() == null) {
-            record.setLoggedAt(LocalDateTime.now());
-        }
-        return repo.save(record);
+    public CredentialHolderProfile createHolder(CredentialHolderProfile profile) {
+        return repository.save(profile);
     }
 
     @Override
-    public List<AuditTrailRecord> getLogsByCredential(Long credentialId) {
-        return repo.findByCredentialId(credentialId);
+    public CredentialHolderProfile getHolderById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Holder not found"));
     }
 
     @Override
-    public List<AuditTrailRecord> getAllLogs() {
-        return repo.findAll();
+    public List<CredentialHolderProfile> getAllHolders() {
+        return repository.findAll();
+    }
+
+    @Override
+    public CredentialHolderProfile findByHolderId(String holderId) {
+        return repository.findAll().stream()
+                .filter(h -> holderId.equals(h.getHolderId()))
+                .findFirst()
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Holder not found"));
+    }
+
+    @Override
+    public CredentialHolderProfile updateHolderStatus(Long id, boolean active) {
+        CredentialHolderProfile profile = getHolderById(id);
+        profile.setActive(active);
+        return repository.save(profile);
     }
 }
