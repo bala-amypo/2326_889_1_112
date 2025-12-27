@@ -1,10 +1,12 @@
 package com.example.demo.repository;
 
-import com.example.demo.entity.VerificationRule;
 import org.springframework.data.jpa.repository.JpaRepository;
-import java.util.List;
+import com.example.demo.entity.*;
 
-public interface VerificationRuleRepository extends JpaRepository<VerificationRule, Long> {
-    VerificationRule save(VerificationRule rule);
+import java.util.*;
+
+public interface VerificationRuleRepository
+        extends JpaRepository<VerificationRule, Long> {
     List<VerificationRule> findByActiveTrue();
 }
+

@@ -1,20 +1,46 @@
 package com.example.demo.security;
 
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
+
+import jakarta.annotation.PostConstruct;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
+import java.nio.charset.StandardCharsets;
+import java.security.Key;
+import java.util.Date;
 
 @Component
 public class JwtUtil {
-    
+
+    @Value("${jwt.secret}")
+    private String secret;
+
+    @Value("${jwt.expiration}")
+    private long expiration;
+
+    private Key key;
+
+    @PostConstruct
+    public void init() {
+        key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+    }
+
     public String generateToken(Long userId, String email, String role) {
-        return "jwt_token_" + userId + "_" + email + "_" + role;
-    }
-    
-    public boolean validateToken(String token) {
-        return token != null && token.startsWith("jwt_token_");
-    }
-    
-    public String extractEmail(String token) {
-        String[] parts = token.split("_");
-        return parts.length > 3 ? parts[3] : null;
+
+        return Jwts.builder()
+                .claim("userId", userId)
+                .claim("email", email)
+                .claim("role", role)
+                .setSubject(email)
+                .setIssuedAt(new Date())
+                .setExpiration(
+                        new Date(System.currentTimeMillis() + expiration)
+                )
+                .signWith(key, SignatureAlgorithm.HS256)
+                .compact();
     }
 }
