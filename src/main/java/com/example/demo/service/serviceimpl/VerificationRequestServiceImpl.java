@@ -1,12 +1,5 @@
 package com.example.demo.service.serviceimpl;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.example.demo.entity.AuditTrailRecord;
 import com.example.demo.entity.CredentialRecord;
 import com.example.demo.entity.VerificationRequest;
@@ -15,26 +8,35 @@ import com.example.demo.repository.VerificationRequestRepository;
 import com.example.demo.service.AuditTrailService;
 import com.example.demo.service.CredentialRecordService;
 import com.example.demo.service.VerificationRequestService;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class VerificationRequestServiceImpl implements VerificationRequestService {
 
-    @Autowired
-    private VerificationRequestRepository verificationRequestRepo;
+    private final VerificationRequestRepository verificationRequestRepo;
+    private final CredentialRecordService credentialService;
+    private final AuditTrailService auditService;
 
-    @Autowired
-    private CredentialRecordService credentialService;
+    public VerificationRequestServiceImpl(
+            VerificationRequestRepository verificationRequestRepo,
+            CredentialRecordService credentialService,
+            AuditTrailService auditService) {
 
-    @Autowired
-    private AuditTrailService auditService;
+        this.verificationRequestRepo = verificationRequestRepo;
+        this.credentialService = credentialService;
+        this.auditService = auditService;
+    }
 
-    // REQUIRED by VerificationRequestService
     @Override
     public VerificationRequest initiateVerification(VerificationRequest request) {
+        request.setStatus("PENDING");
         return verificationRequestRepo.save(request);
     }
 
-    // REQUIRED by VerificationRequestService
     @Override
     public VerificationRequest processVerification(Long requestId) {
 
@@ -42,15 +44,11 @@ public class VerificationRequestServiceImpl implements VerificationRequestServic
                 .orElseThrow(() ->
                         new ResourceNotFoundException("Verification request not found"));
 
-        // Get all credentials of the holder
-        List<CredentialRecord> credentials =
-                credentialService.getCredentialsByHolder(request.getHolderId());
-
-        CredentialRecord credential = credentials.stream()
-                .filter(c -> c.getId().equals(request.getCredentialId()))
-                .findFirst()
-                .orElseThrow(() ->
-                        new ResourceNotFoundException("Credential not found"));
+        // ✅ Fetch credential using EXISTING service method
+        CredentialRecord credential =
+                credentialService.getCredentialByCode(
+                        request.getCredentialId().toString()
+                );
 
         boolean expired =
                 credential.getExpiryDate() != null &&
@@ -59,6 +57,7 @@ public class VerificationRequestServiceImpl implements VerificationRequestServic
         request.setStatus(expired ? "FAILED" : "SUCCESS");
         verificationRequestRepo.save(request);
 
+        // ✅ Audit log
         AuditTrailRecord audit = new AuditTrailRecord();
         audit.setCredentialId(request.getCredentialId());
         audit.setLoggedAt(LocalDateTime.now());
@@ -67,9 +66,13 @@ public class VerificationRequestServiceImpl implements VerificationRequestServic
         return request;
     }
 
-    // REQUIRED by VerificationRequestService
     @Override
     public List<VerificationRequest> getRequestsByCredential(Long credentialId) {
         return verificationRequestRepo.findByCredentialId(credentialId);
+    }
+
+    @Override
+    public List<VerificationRequest> getAllRequests() {
+        return verificationRequestRepo.findAll();
     }
 }
