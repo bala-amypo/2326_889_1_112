@@ -2,41 +2,46 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.VerificationRequest;
 import com.example.demo.service.VerificationRequestService;
-
-import lombok.RequiredArgsConstructor;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/verifications")
-@RequiredArgsConstructor
+@RequestMapping("/api/verification")
+@SecurityRequirement(name = "Bearer Authentication")
+@Tag(name = "Verification Requests", description = "Manage verification requests")
 public class VerificationRequestController {
-
-    private final VerificationRequestService service;
-
+    
+    private final VerificationRequestService verificationService;
+    
+    public VerificationRequestController(VerificationRequestService verificationService) {
+        this.verificationService = verificationService;
+    }
+    
     @PostMapping
-    public ResponseEntity<VerificationRequest> initiate(
-            @RequestBody VerificationRequest request) {
-        return ResponseEntity.ok(service.initiateVerification(request));
+    @Operation(summary = "Initiate verification", description = "Create a new verification request")
+    public ResponseEntity<VerificationRequest> initiate(@RequestBody VerificationRequest request) {
+        return ResponseEntity.ok(verificationService.initiateVerification(request));
     }
-
+    
     @PutMapping("/{id}/process")
-    public ResponseEntity<VerificationRequest> process(
-            @PathVariable Long id) {
-        return ResponseEntity.ok(service.processVerification(id));
+    @Operation(summary = "Process verification", description = "Process and validate a verification request")
+    public ResponseEntity<VerificationRequest> process(@PathVariable Long id) {
+        return ResponseEntity.ok(verificationService.processVerification(id));
     }
-
+    
     @GetMapping("/credential/{credentialId}")
-    public ResponseEntity<List<VerificationRequest>> getByCredential(
-            @PathVariable Long credentialId) {
-        return ResponseEntity.ok(
-                service.getRequestsByCredential(credentialId));
+    @Operation(summary = "Get requests by credential", description = "Get all verification requests for a credential")
+    public ResponseEntity<List<VerificationRequest>> getByCredential(@PathVariable Long credentialId) {
+        return ResponseEntity.ok(verificationService.getRequestsByCredential(credentialId));
     }
-
+    
     @GetMapping
+    @Operation(summary = "List all requests", description = "Get all verification requests")
     public ResponseEntity<List<VerificationRequest>> getAll() {
-        return ResponseEntity.ok(service.getAllRequests());
+        return ResponseEntity.ok(verificationService.getAllRequests());
     }
 }
